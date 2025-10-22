@@ -54,7 +54,7 @@ Durante el desarrollo de **Barrio Gol** aprendimos a:
 
 **Kevin Nicolás Beltrán Rivera**  
 Desarrollador Fullstack Junior  
-[LinkedIn](www.linkedin.com/in/kevin-beltran-b91aa4174 ) | [GitHub](https://github.com/Nicolas121918)
+[LinkedIn](www.linkedin.com/in/kevin-beltran-b91aa4174) | [GitHub](https://github.com/Nicolas121918)
 
 ---
 
