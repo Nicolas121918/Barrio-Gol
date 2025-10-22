@@ -49,13 +49,6 @@ Durante el desarrollo de **Barrio Gol** aprendimos a:
 - Trabajar en equipo con control de versiones (**Git y GitHub**).  
 - Resolver conflictos y mantener buenas prácticas de código.
 
----
-
-## 📸 Capturas o Demo
-
-*(Puedes añadir aquí capturas de pantalla o un video del funcionamiento del sistema)*
-
----
 
 ## 👨‍💻 Autor
 
