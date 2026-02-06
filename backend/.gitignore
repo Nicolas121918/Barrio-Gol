@@ -1,1 +1,35 @@
 .qodo
+.node_modules
+
+
+# Ignoramos el contenido de las carpetas
+archivos_torneos/*
+imagenes/*
+imagenes_cancha_torneo/*
+imagenes_torneo/*
+imagenes_cancha_torneos/*
+imagenescancha/*
+logos/*
+logos_torneos/*
+logospartidos/*
+logosteams/*
+logostorneos/*
+media/*
+micarpeta/*
+videos/*
+
+# Excluimos los .gitkeep para que las carpetas se suban vacías
+!archivos_torneos/.gitkeep
+!imagenes/.gitkeep
+!imagenes_cancha_torneo/.gitkeep
+!imagenes_torneo/.gitkeep
+!imagenes_cancha_torneos/.gitkeep
+!imagenescancha/.gitkeep
+!logos/.gitkeep
+!logos_torneos/.gitkeep
+!logospartidos/.gitkeep
+!logosteams/.gitkeep
+!logostorneos/.gitkeep
+!media/.gitkeep
+!micarpeta/.gitkeep
+!videos/.gitkeep
