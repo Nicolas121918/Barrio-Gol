@@ -195,7 +195,7 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'vue-router';
 import { useUsuarios } from '@/stores/usuario';
 import verimg from '@/assets/imagenes/ojo.png'
-import nover from '@/assets/imagenes/ojos.png'
+import nover from '@/assets/imagenes/ojo.png'
 
 const router = useRouter();
 const isLogin = ref(true);

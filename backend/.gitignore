@@ -1,5 +1,7 @@
 .qodo
-node_modules
+venv/
+node_modules/
+.env/
 
 
 # Ignoramos el contenido de las carpetas
