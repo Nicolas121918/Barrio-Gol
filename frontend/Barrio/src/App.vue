@@ -10,7 +10,7 @@
 </template>
 <script setup>
 
-import Principal from './components/Principal.vue';
+import Principal from './components/vistas/Principal.vue';
 import 'leaflet/dist/leaflet.css';
 import { useUsuarios } from './stores/usuario';
 const movieStore=useUsuarios();

@@ -1,46 +1,43 @@
-import AboutUs from "@/components/AboutUs.vue";
-import iniciosesion from "@/components/Iniciosesion.vue";
-import Perfil from "@/components/Perfil.vue";
-import Videohome from "@/components/videohome.vue";
-import actualizar_perfil from "@/components/actualizar_perfil.vue";
-import home from "@/components/home.vue";
-import Contacto from "@/components/Contacto.vue";
-import equipo from "@/components/equipo.vue";
-import Eventos from "@/components/Eventos.vue";
-import subir_video from "@/components/subir_video.vue";
-import Notificaciones from "@/components/Notificaciones.vue";
-import crearequipo from "@/components/crearequipo_form.vue";
-import crearpartido from "@/components/crearpartido.vue";
-import diegos from "@/components/diegos.vue";
+import AboutUs from "@/components/vistas/AboutUs.vue";
+import iniciosesion from "@/components/auth/Iniciosesion.vue";
+import Perfil from "@/components/vistas/Perfil.vue";
+import Videohome from "@/components/vistas/videohome.vue";
+import actualizar_perfil from "@/components/auth/actualizar_perfil.vue";
+import home from "@/components/vistas/home.vue";
+import Contacto from "@/components/vistas/Contacto.vue";
+import equipo from "@/components/equipos/equipo.vue";
+import Eventos from "@/components/vistas/Eventos.vue";
+import subir_video from "@/components/shared/subir_video.vue";
+import Notificaciones from "@/components/layout/Notificaciones.vue";
+import crearequipo from "@/components/equipos/crearequipo_form.vue";
+import crearpartido from "@/components/partidos/crearpartido.vue";
+import diegos from "@/components/shared/diegos.vue";
 import { createRouter,createWebHistory } from "vue-router";
-import Torneos_guardado from "@/components/torneos_guardado.vue";
-import Torneos_creados from "@/components/torneos_creados.vue";
-import Perfiles from "@/components/perfiles.vue";
-import Jugadores from "@/components/jugadores.vue";
-import Invitar from "@/components/invitar.vue";
-import Videos from "@/components/videos.vue";
-import Pagos from "@/components/pagos.vue";
-import ganadortorneo from "@/components/ganadortorneo.vue";
-import jugadorestorneo from "@/components/jugadorestorneo.vue";
-import targetas from "@/components/targetas.vue";
-import Galeria from "@/components/galeria.vue";
-import Vender from "@/components/vender.vue";
-import Creartorneo from "@/components/creartorneo.vue";
-import One_video from "@/components/one_video.vue";
-import Stores from "@/components/stores.vue";
-import Partidos_creado from "@/components/partidos_creado.vue";
-import Sala_espera_partidos from "@/components/sala_espera_partidos.vue";
-import Ganador_partido from "@/components/ganador_partido.vue";
-import Resultados_partidos from "@/components/resultados_partidos.vue";
-import Partidos_finalizados from "@/components/partidos_finalizados.vue";
-import Inpeccion_equipo from "@/components/inpeccion_equipo.vue";
-import Torneos_finalizados from "@/components/torneos_finalizados.vue";
-import Torneo_sala_espera from "@/components/torneo_sala_espera.vue";
-import Galeria_insepccion from "../components/galeria_insepccion.vue";
-import Solicitud_teams from "@/components/solicitud_teams.vue";
-import Torneoensorteo from "@/components/torneoensorteo.vue";
-import statustorneos from "@/components/statustorneos.vue";
-import Torneoscreador from "@/components/torneoscreador.vue";
+import Torneos_guardado from "@/components/partidos/torneos_guardado.vue";
+import Torneos_creados from "@/components/partidos/torneos_creados.vue";
+import Perfiles from "@/components/vistas/perfiles.vue";
+import Jugadores from "@/components/jugadores/jugadores.vue";
+import Invitar from "@/components/vistas/invitar.vue";
+import Videos from "@/components/shared/videos.vue";
+import Pagos from "@/components/shared/pagos.vue";
+import ganadortorneo from "@/components/equipos/ganadortorneo.vue";
+import jugadorestorneo from "@/components/jugadores/jugadorestorneo.vue";
+import targetas from "@/components/shared/targetas.vue";
+import Galeria from "@/components/vistas/galeria.vue";
+import Vender from "@/components/shared/vender.vue";
+import Creartorneo from "@/components/partidos/creartorneo.vue";
+import One_video from "@/components/shared/one_video.vue";
+import Stores from "@/components/shared/stores.vue";
+import Partidos_creado from "@/components/partidos/partidos_creado.vue";
+import Sala_espera_partidos from "@/components/partidos/sala_espera_partidos.vue";
+import Ganador_partido from "@/components/partidos/ganador_partido.vue";
+import Resultados_partidos from "@/components/partidos/resultados_partidos.vue";
+import Partidos_finalizados from "@/components/partidos/partidos_finalizados.vue";
+import Inpeccion_equipo from "@/components/equipos/inpeccion_equipo.vue";
+import Torneos_finalizados from "@/components/partidos/torneos_finalizados.vue";
+import Torneo_sala_espera from "@/components/partidos/torneo_sala_espera.vue";
+import Solicitud_teams from "@/components/partidos/solicitud_teams.vue";
+import Torneoscreador from "@/components/partidos/torneoscreador.vue";
 
 
 const routes=[
@@ -257,7 +254,7 @@ const routes=[
       {
         path: '/galeria-insepccion/:id',
         name: 'GaleriaInsepccion',
-        component: () => import('@/components/galeria_insepccion.vue')
+        component: () => import('@/components/shared/galeria_insepccion.vue')
       },      
       {
         path: '/stores',
