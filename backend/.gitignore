@@ -1,5 +1,5 @@
 .qodo
-.node_modules
+node_modules
 
 
 # Ignoramos el contenido de las carpetas
