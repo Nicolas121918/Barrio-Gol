@@ -77,7 +77,7 @@ class videos(BaseModel):
     id: int
     url: str
     descripcion: str
-    likes: int = 0  # Inicialmente 0 likes
+    likes: int = 0  
 
 # Schema para recibir datos al dar un like
 class LikeCreate(BaseModel):
@@ -106,11 +106,11 @@ class Torneo(BaseModel):
     id_torneo: int
     nombre: str
     documento_creador: str
-    tp_futbol: str  # Tipo de fútbol (fútbol, fútbol sala, etc.)
+    tp_futbol: str  
     tipo_torneo: str  # Eliminación directa, liga, grupos, etc.
     fecha_inicio: str
     ubicacion: str
-    como_llegar: str  # Indicaciones de llegada
+    como_llegar: str  
     lugar: str
     
     imagen_cancha: Optional[UploadFile] = File(None)
@@ -119,10 +119,10 @@ class Torneo(BaseModel):
     premiacion: str
     reglas: str
 
-    categorias: str  # Ej: "juvenil, libre, femenina"
+    categorias: str  
     costo_inscripcion: float
 
-    torneo_logo: Optional[str] = None  # Imagen representativa del torneo
+    torneo_logo: Optional[str] = None  
     estado: Optional[str] = "en espera"
     id_ganador: Optional[int] = None
 
@@ -153,11 +153,10 @@ class Partidos(BaseModel):
     ganador: Optional[str] = None
     Documento_Creador_P: str
 
-    # Nuevos campos
     reglas: Optional[str] = None
     como_llegar: Optional[str] = None
-    goles_local: int = 0  # Nuevo campo
-    goles_visitantes: int = 0  # Nuevo campo
+    goles_local: int = 0  
+    goles_visitantes: int = 0 
 
     class Config:
         from_attributes = True  # Cambié 'orm_mode' por 'from_attributes porque 'orm_mode' no es un atributo válido en Pydantic v2.0
