@@ -16,7 +16,7 @@
 
     <div class="video-container" :class="{ active: isPlaying }">
       <video class="video_video" ref="videoElement" muted loop playsinline>
-        <source src="../assets/videos/video.mp4" type="video/mp4" />
+        <source src="../../assets/videos/video.mp4" type="video/mp4" />
       </video>
     </div>
   </div>

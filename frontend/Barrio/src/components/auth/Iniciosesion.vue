@@ -276,6 +276,9 @@ const iniciarSesion = async () => {
     });
 
     if (iniciar.data) {
+      localStorage.setItem("token", iniciar.data.access_token);
+      console.log("¡Token recibido!", iniciar.data.access_token)
+
       const userData = {
         correo: iniciar.data.correo,
         id: iniciar.data.id,
@@ -291,19 +294,25 @@ const iniciarSesion = async () => {
         equipo_tiene: iniciar.data.equiposTiene,
       };
 
-      await usuariosStore.setUsuario(userData); // Esperar a que se actualice el estado
+      await usuariosStore.setUsuario(userData); 
 
       router.push("/Perfil").then(() => {
         Swal.fire({
           icon: "success",
           title: "¡Inicio de sesión exitoso!",
-          text: "Bienvenido de nuevo",
+          text: `Bienvenido de nuevo ${iniciar.data.nombreUsuario}`,
           confirmButtonText: "Aceptar",
         });
       });
     }
   } catch (error) {
-    alert("⚠️ Correo o contraseña incorrectos. ⚠️");
+    const mensajeError = error.response?.data?.detail || "Correo o contraseña incorrectos";
+    
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: mensajeError,
+    });
     console.error("Error al iniciar sesión:", error);
   }
 };

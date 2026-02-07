@@ -22,11 +22,15 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import socketio
 import requests
-
+import jwt
 from fastapi.staticfiles import StaticFiles
 from fastapi import HTTPException
 import logging
+from jose import jwt
+from dotenv import load_dotenv
+from datetime import datetime, timedelta
 from sqlalchemy import func
+import privateR
 
 
 app = FastAPI()
@@ -60,10 +64,12 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 connections: list[WebSocket] = []
+load_dotenv()
 
 ## Endpoint Para Login
 @app.post("/iniciar")
-async def iniciar_sesion(login: LoginRequest, db: Session = Depends(get_db)):
+async def iniciar_sesion(login: LoginRequest, db: Session = Depends(get_db,privateroutes)):
+
     cliente = db.query(Registro).filter(Registro.correo == login.correo).first()
     
     if not cliente:     
@@ -72,7 +78,18 @@ async def iniciar_sesion(login: LoginRequest, db: Session = Depends(get_db)):
     if not bcrypt.checkpw(login.contraseña.encode('utf-8'), cliente.contraseña.encode('utf-8')):
         raise HTTPException(status_code=400, detail="Contraseña incorrecta")
     
+    # ---CREAMOS EL TOKEN ---
+    access_token_expires = timedelta(minutes=60) # El token dura 1 hora
+    expire = datetime.utcnow() + access_token_expires
+    
+    # Guardamos el correo en el "payload" del token
+    payload = {"sub": cliente.correo, "exp": expire}
+    token_generado = jwt.encode(payload, os.getenv("SECRET_KEY"), algorithm=os.getenv("ALGORITHM"))
+
+
     return {
+        "access_token": token_generado, # <-- AQUÍ ESTÁ EL TOKEN PARA EL FRONT
+        "token_type": "bearer",
         "documento": cliente.documento,
         "nombreUsuario": cliente.nombre,
         "correo": cliente.correo,
@@ -83,7 +100,7 @@ async def iniciar_sesion(login: LoginRequest, db: Session = Depends(get_db)):
         "celular" : cliente.celular,
         "Edad" : cliente.Edad,
         "posicion" : cliente.posicion,
-        "equiposTiene": cliente.equipo_tiene,  # Se añade la clave correcta
+        "equiposTiene": cliente.equipo_tiene,
     }
 ## Endpoint Para Registrar usuarios
 @app.post("/insertarc", response_model=clie)

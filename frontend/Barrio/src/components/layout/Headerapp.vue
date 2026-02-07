@@ -3,25 +3,25 @@
 <header class="header1">
   <!-- perfil del usuario -->
       <router-link class="link perfil" to="/Perfil">
-        <img class="api1" src="../assets/iconos header/perfil-del-usuario.png" alt="Perfil">
+        <img class="api1" src="../../assets/iconos header/perfil-del-usuario.png" alt="Perfil">
       </router-link>
         <!-- casa-->
       <router-link class="link home" to="/home">
-        <img class="api2" src="../assets/iconos header/hogar.png" alt="Home">
+        <img class="api2" src="../../assets/iconos header/hogar.png" alt="Home">
       </router-link>
         <!-- Encabezado principal con enlaces a distintas rutas -->
       <router-link class="link torneos" to="/torneos">
-        <img class="api3" src="../assets/iconos header/torneo.png" alt="Torneo">
+        <img class="api3" src="../../assets/iconos header/torneo.png" alt="Torneo">
       </router-link>
       <router-link class="link equipo" to="/equipos">
-        <img class="api5" src="../assets/iconos header/clan.png" alt="Equipo">
+        <img class="api5" src="../../assets/iconos header/clan.png" alt="Equipo">
       </router-link>
       <router-link class="link video" to="/jugadores">
-        <img class="api4" src="../assets/imagenes/personas.png" alt="Video">
+        <img class="api4" src="../../assets/imagenes/personas.png" alt="Video">
       </router-link>
 
       <router-link to="/videos" class=" link">
-        <img class="api4" src="../assets/imagenes/video.png" alt="">
+        <img class="api4" src="../../assets/imagenes/video.png" alt="">
       </router-link>
     <router-link to="/notificaciones" class="link bell">
       <div class="loader">
@@ -45,10 +45,10 @@
   </div>
   </router-link>
       <router-link class="link torneos" to="/stores">
-        <img class="api4" src="../assets/imagenes/futbol.png" alt="Tienda">
+        <img class="api4" src="../../assets/imagenes/futbol.png" alt="Tienda">
       </router-link>
       <router-link class="link api8" to="/home">
-        <img class="api8" src="../assets/imagenes/logo.png" alt="Logo">
+        <img class="api8" src="../../assets/imagenes/logo.png" alt="Logo">
       </router-link>
     </header>
 </template>

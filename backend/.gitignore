@@ -1,7 +1,7 @@
 .qodo
 venv/
 node_modules/
-.env/
+.env
 __pycache__/
 
 
