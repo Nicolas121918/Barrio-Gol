@@ -1,6 +1,12 @@
 # ⚽ Barrio Gol
 
-Plataforma web para la gestión de torneos, equipos y jugadores de fútbol barrial. Incluye autenticación segura, rutas privadas, tiempo real con sockets y manejo de archivos multimedia.
+Plataforma web para la gestión de torneos, equipos y jugadores de fútbol barrial. El sistema incorpora autenticación segura mediante JWT, control de acceso con rutas privadas en backend y frontend, comunicación en tiempo real a través de sockets y gestión de archivos multimedia.
+
+Este proyecto fue desarrollado como resultado de un año de trabajo continuo durante el programa Tecnólogo del SENA, en el marco de nuestra formación profesional. A lo largo de su desarrollo, se aplicaron buenas prácticas de desarrollo web moderno, utilizando Vue.js en el frontend y FastAPI en el backend, integrando ambas capas con una base de datos MySQL.
+
+Durante el proceso, se implementaron y exploraron tecnologías complementarias como Node.js, Vite para la construcción y optimización del proyecto, y CSS puro para el diseño responsivo mediante media queries, garantizando compatibilidad y usabilidad en distintos dispositivos.
+
+Mi rol dentro del equipo fue Full Stack Developer, siendo responsable de la integración entre frontend y backend, la administración y modelado de la base de datos, así como la implementación de funcionalidades clave, entre ellas el envío automático de correos electrónicos durante el proceso de registro de usuarios.
 
 ---
 
