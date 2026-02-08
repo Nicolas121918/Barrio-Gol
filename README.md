@@ -123,7 +123,7 @@ Crear archivo `.env` en `/backend`:
 ```env
 SECRET_KEY=piniasHello
 ALGORITHM=HS256
-DATABASE_URL=mysql+mysqlconnector://user:password@localhost/barrio_gol
+DATABASE_URL=mysql+mysqlconnector://user:password@localhost/registro
 ```
 
 ---
