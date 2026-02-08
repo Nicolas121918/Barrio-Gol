@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from fastapi import File, Form, UploadFile
-from typing import Optional
+from typing import Optional,List
 from datetime import datetime
 
 class RegistroBase(BaseModel):
@@ -99,8 +99,6 @@ class LikeCountResponse(BaseModel):
     total_likes: int
 
      
-from pydantic import BaseModel
-from typing import Optional, List
 
 class Torneo(BaseModel):
     id_torneo: int
@@ -133,8 +131,6 @@ class SolicitudTorneo(BaseModel):
     documento_equipo: str
     estado: Optional[str] = "pendiente"  # Estado por defecto es pendiente
 
-from pydantic import BaseModel
-from typing import Optional
 
 # Esquema para el partido
 class Partidos(BaseModel):

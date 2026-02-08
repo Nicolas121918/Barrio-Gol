@@ -37,7 +37,7 @@
     </router-link></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link"> <router-link id="cerrar_sesion_link" to="/inicioSesion">Cerrar Sesión</router-link></a>
+             <button v-on:click="cerrarSesion">cerrar sesion</button>
             </li>
           </ul>
         </div>
@@ -50,16 +50,31 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'; 
 import Headerapp from '../layout/Headerapp.vue';
 import headermobile from '../layout/headermobile.vue';
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.js";
-const fecha = ref(new Date().getUTCDate());
-const fecha2 = ref (new Date().getMonth() + 1)
+import { useUsuarios } from '@/stores/usuario';
+import Swal from 'sweetalert2'; 
 
-const fecha3 = ref(new Date().getUTCFullYear());
+const router = useRouter();
+const store = useUsuarios();
 
-
+const cerrarSesion = async () => {
+  try {
+    await store.logout();
+    
+    router.push("/inicioSesion");
+    
+    Swal.fire({
+      icon: "info",
+      title: "Sesión cerrada",
+      timer: 1500,
+      showConfirmButton: false
+    });
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+  }
+};
 
 </script>
 

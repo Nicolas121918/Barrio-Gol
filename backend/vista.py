@@ -1,6 +1,6 @@
 from datetime import datetime
 from fastapi import FastAPI,UploadFile,File ,Form , Depends, HTTPException, Query,WebSocket
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session,joinedload
 import bcrypt
 from modelo import Registro, SolicitudesIngreso
 import uvicorn
@@ -14,43 +14,43 @@ from schemas import Contactousuers
 from modelo import GaleriaEquipo
 from schemas import JugadorForm
 from schemas import DatosTeams,Message
-from modelo import Like
+from modelo import Like, UserVideos
 from modelo import SolicitudUnirse
 from schemas import Torneo,Partidos,DatosTeams
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
-import os
 import socketio
 import requests
 import jwt
 from fastapi.staticfiles import StaticFiles
 from fastapi import HTTPException
+from fastapi import Response
 import logging
 from jose import jwt
 from dotenv import load_dotenv
+import os
 from datetime import datetime, timedelta
 from sqlalchemy import func
-import privateR
-
+from private_routes import privateroutes
+import shutil
 
 app = FastAPI()
 
-app.mount("/imagenes", StaticFiles(directory="imagenes"), name="imagenes")
-app.mount("/imagenes_cancha_torneos", StaticFiles(directory="imagenes_cancha_torneos"), name="logospartidos")
-app.mount("/imagenescancha", StaticFiles(directory="imagenescancha"), name="imagenescancha")
-app.mount("/logos", StaticFiles(directory="logos"), name="logos")
-app.mount("/logostorneos", StaticFiles(directory="logostorneos"), name="logostorneos")
-app.mount("/logospartidos", StaticFiles(directory="logospartidos"), name="logospartidos")
-app.mount("/logosteams", StaticFiles(directory="logosteams"), name="logosteams")
-app.mount("/media", StaticFiles(directory="media"), name="media")
-app.mount("/micarpeta", StaticFiles(directory="micarpeta"), name="micarpeta")
-app.mount("/videos", StaticFiles(directory="videos"), name="videos")
+app.mount("/images_container/sistema/imagenes", StaticFiles(directory="images_container/sistema/imagenes"), name="imagenes")
+app.mount("/images_container/uploads/torneos/cancha_torneos", StaticFiles(directory="images_container/uploads/torneos/cancha_torneos"), name="logospartidos")
+app.mount("/images_container/uploads/torneos/logos", StaticFiles(directory="images_container/uploads/torneos/logos"), name="logos")
+app.mount("/images_container/uploads/torneos/logos_torneos", StaticFiles(directory="images_container/uploads/torneos/logos_torneos"), name="logostorneos")
+app.mount("/images_container/equipos/logospartidos", StaticFiles(directory="images_container/equipos/logospartidos"), name="logospartidos")
+app.mount("/images_container/equipos/logosteams", StaticFiles(directory="images_container/equipos/logosteams"), name="logosteams")
+app.mount("/images_container/sistema/media", StaticFiles(directory="images_container/sistema/media"), name="media")
+app.mount("/images_container/sistema/micarpeta", StaticFiles(directory="images_container/sistema/micarpeta"), name="micarpeta")
+app.mount("/images_container/uploads/videos", StaticFiles(directory="images_container/uploads/videos"), name="videos")
 
 
 ## permisos endpoints
 
 sio = socketio.AsyncServer(
-    cors_allowed_origins=["http://localhost:5173"],  # SOLO el frontend, NO uses '*'
+    cors_allowed_origins=["http://localhost:5173"], 
     async_mode='asgi'
 )
 app.add_middleware(
@@ -66,9 +66,15 @@ Base.metadata.create_all(bind=engine)
 connections: list[WebSocket] = []
 load_dotenv()
 
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+
+if not SECRET_KEY or not ALGORITHM:
+    raise RuntimeError("Faltan variables de entorno")
+
 ## Endpoint Para Login
 @app.post("/iniciar")
-async def iniciar_sesion(login: LoginRequest, db: Session = Depends(get_db,privateroutes)):
+async def iniciar_sesion(login: LoginRequest, response: Response, db: Session = Depends(get_db)):
 
     cliente = db.query(Registro).filter(Registro.correo == login.correo).first()
     
@@ -78,18 +84,27 @@ async def iniciar_sesion(login: LoginRequest, db: Session = Depends(get_db,priva
     if not bcrypt.checkpw(login.contraseña.encode('utf-8'), cliente.contraseña.encode('utf-8')):
         raise HTTPException(status_code=400, detail="Contraseña incorrecta")
     
-    # ---CREAMOS EL TOKEN ---
-    access_token_expires = timedelta(minutes=60) # El token dura 1 hora
+    #  Definir tiempos y datos PRIMERO
+    access_token_expires = timedelta(minutes=60)
     expire = datetime.utcnow() + access_token_expires
     
-    # Guardamos el correo en el "payload" del token
+    # Crear el payload
     payload = {"sub": cliente.correo, "exp": expire}
-    token_generado = jwt.encode(payload, os.getenv("SECRET_KEY"), algorithm=os.getenv("ALGORITHM"))
-
+    
+    #  Generar el token usando el payload ya definido
+    token_generado = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    
+    #  Configurar la Cookie en la respuesta
+    response.set_cookie(
+        key="access_token", 
+        value=token_generado, 
+        httponly=True,  
+        max_age=3600,   
+        samesite="lax", 
+        secure=False    # Cambiar a True si usas HTTPS (producción)
+    )
 
     return {
-        "access_token": token_generado, # <-- AQUÍ ESTÁ EL TOKEN PARA EL FRONT
-        "token_type": "bearer",
         "documento": cliente.documento,
         "nombreUsuario": cliente.nombre,
         "correo": cliente.correo,
@@ -173,10 +188,6 @@ async def registrar_cliente(
 
 
 #endpoint para ver los videos
-from sqlalchemy.orm import joinedload
-
-from sqlalchemy.orm import joinedload
-from modelo import UserVideos, Like
 @app.get("/listarvideos")
 async def listar_videos(db: Session = Depends(get_db)):
     lista_videos = (
@@ -320,11 +331,7 @@ def obtener_usuario(user_id: int, db: Session = Depends(get_db)):
 
 
 
-from fastapi import FastAPI, Form, File, UploadFile, Depends, HTTPException
-from sqlalchemy.orm import Session
-from typing import Optional
-import os
-import shutil
+
 
 ## Endpoint Para Crear la tabla de datos basicos apartir de las pqrs del usuario
 @app.post("/contactos/")
@@ -651,11 +658,6 @@ def actualizar_puntos_y_nivel(id_equipo: int, db: Session = Depends(get_db)):
 
 #equipo actualizar------
 
-from fastapi import Form, File, UploadFile, HTTPException
-import os
-
-
-
 @app.put("/usuario/actualizar-foto")
 async def actualizar_foto_perfil(
     correo: str,  # El correo se enviará en el cuerpo de la solicitud
@@ -811,6 +813,17 @@ async def actualizar_ciudad(
 
     return {"message": "Ciudad actualizada", "ciudad": usuario.ciudad}
 
+
+@app.post("/salir")
+async def cerrar_sesion(response: Response):
+    # Eliminamos la cookie 'access_token'
+    response.delete_cookie(
+        key="access_token",
+        httponly=True,
+        samesite="lax",
+        secure=False  
+    )
+    return {"detail": "Sesión cerrada correctamente"}
 
 ## Endpoint Para Actualizar la descripción sin ID en la URL
 @app.put("/usuario/actualizar-descripcion")
@@ -1007,6 +1020,8 @@ async def crear_partido(
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error al crear partido: {str(e)}")
+    
+    
 @app.get("/partidos_finalizados")
 async def partidos_finalizados(db: Session = Depends(get_db)):
     # Cambiar 'partidos' a un nombre diferente para evitar el conflicto
@@ -1406,9 +1421,7 @@ async def actualizar_puntos(id_partido: int, db: Session = Depends(get_db)):
 #-------------------------------------TORNEO-----------------------------------------------------------------
 
 
-from fastapi import APIRouter, Form, UploadFile, File, HTTPException, Depends
-from sqlalchemy.orm import Session
-import os, shutil
+
 
 router = APIRouter()
 
@@ -1605,6 +1618,7 @@ async def listar_torneos(db: Session = Depends(get_db)):
         }
         for torneo, nombre_creador, imagen_creador, documento_creador in torneos_con_creador
     ]
+    
 @app.get("/listar_torneo/{id_torneo}")
 async def obtener_torneo_por_id(id_torneo: int, db: Session = Depends(get_db)):
     resultado = (
@@ -1635,6 +1649,7 @@ async def obtener_torneo_por_id(id_torneo: int, db: Session = Depends(get_db)):
     }
 
     return torneo_dict
+
 @app.post("/enviarSolicitud/{id_torneo}")
 def enviar_solicitud(id_torneo: int, id_equipo: str, db: Session = Depends(get_db)):
     try:
@@ -2008,7 +2023,7 @@ def eliminar_publicacion(id_publicacion: int, db: Session = Depends(get_db)):
     if not publicacion:
         raise HTTPException(status_code=404, detail="Publicación no encontrada")
     
-    # Eliminar archivo del sistema (opcional)
+    # Eliminar archivo del sistema 
     try:
         os.remove(publicacion.archivo_url.strip('/'))  # quitar la barra inicial si la tiene
     except:

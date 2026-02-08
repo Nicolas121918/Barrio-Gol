@@ -232,34 +232,10 @@
     color: rgb(177, 177, 177);
   }
 }
-
-@media (min-width: 601px) and (max-width: 768px) {
-}
-
-@media (min-width: 820px) and (max-width: 1280px) {
-}
-
-@media (min-width: 1281px) and (max-width: 1440px) {
-}
-
-@media (min-width: 1441px) and (max-width: 1920px) {
-}
-
-@media (min-width: 1921px) and (max-width: 2560px) {
-}
-
-@media (min-width: 2561px) and (max-width: 3840px) {
-}
-
-@media (min-width: 3841px) and (max-width: 5120px) {
-}
-
-
-
-
-
-
   </style>
+
+
+
     <script>
     import { useUsuarios } from "@/stores/usuario";
     import { watch, onMounted, ref } from "vue";
@@ -277,15 +253,8 @@
     
         const cargarVideos = async () => {
           const documento = movistore.usuario.documento;
-          console.log(movistore.usuario.documento)
-          if (!documento) {
-            console.error("❌ No hay un documento de usuario disponible.");
-            return;
-          }
           try {
-            console.log("🔍 Consultando videos del usuario con documento:", documento);
             const response = await axios.get(`http://127.0.0.1:8000/listarvideosdef/${documento}`);
-            console.log("✅ Respuesta de la API:", response.data);
     
             videos.value = response.data.map(video => ({
               id: video.id,
@@ -294,7 +263,6 @@
               likes: Number(video.likes) || 0,
             }));
     
-            console.log("📜 Lista final de videos:", videos.value);
           } catch (error) {
             console.error("❌ Error al cargar los videos:", error.response?.data || error);
           }
@@ -307,7 +275,6 @@
         const confirmDelete = (id) => {
           videoIdToDelete.value = id;
           showConfirm.value = true;
-          console.log("📌 ID a eliminar:", videoIdToDelete.value);
         };
     
         const deleteVideo = async () => {
@@ -317,7 +284,6 @@
           }
     
           try {
-            console.log("🗑️ Eliminando video con ID:", videoIdToDelete.value);
             await axios.delete(`http://127.0.0.1:8000/eliminarvideo/${videoIdToDelete.value}`);
             
             // Recargar la lista después de la eliminación

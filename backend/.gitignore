@@ -2,6 +2,8 @@
 venv/
 .env
 __pycache__/
+node_modules/
+socket_server/package-lock.json
 
 
 # Ignoramos el contenido de las carpetas
