@@ -1,16 +1,16 @@
 <template>
   <header>
 
-    
-     <!-- Header de escritorio -->
-  <div class="d-none d-md-block">
-    <Headerapp></Headerapp>
-  </div>
 
-  <!-- Header para móviles -->
-  <div class="d-block d-md-none">
-    <headermobile></headermobile>
-  </div>
+    <!-- Header de escritorio -->
+    <div class="d-none d-md-block">
+      <Headerapp></Headerapp>
+    </div>
+
+    <!-- Header para móviles -->
+    <div class="d-block d-md-none">
+      <headermobile></headermobile>
+    </div>
 
 
   </header>
@@ -26,48 +26,50 @@
           </button>
           <div v-if="mostrarOpciones" class="modal-overlay" @click.self="mostrarOpciones = false">
             <div class="modal-menu">
-  <span class="dropdown-option deshabilitado">
-    🔒 Crear Torneo <small class="proximamente">(Próximamente)</small>
-  </span>
-  <router-link to="/crearpartido" class="dropdown-option" @click="mostrarOpciones = false">
-    ⚽ Crear Partido
-  </router-link>
-</div>
+              <span class="dropdown-option deshabilitado">
+                🔒 Crear Torneo <small class="proximamente">(Próximamente)</small>
+              </span>
+              <router-link to="/crearpartido" class="dropdown-option" @click="mostrarOpciones = false">
+                ⚽ Crear Partido
+              </router-link>
+            </div>
 
           </div>
         </div>
         <div class="relative inline-block text-left">
-  <button @click="mostrarMenu = !mostrarMenu" class="boton-creados">
-    Creados▼
-  </button>
-  <div v-if="mostrarMenu" class="menu-creados absolute right-0 mt-2 w-48 bg-black text-white border border-gold rounded shadow-lg z-50">
-    
-    <div class="opcion-menu deshabilitado">
-      🔒 Torneos Creados <small class="proximamente">(Próximamente)</small>
-    </div>
+          <button @click="mostrarMenu = !mostrarMenu" class="boton-creados">
+            Creados▼
+          </button>
+          <div v-if="mostrarMenu"
+            class="menu-creados absolute right-0 mt-2 w-48 bg-black text-white border border-gold rounded shadow-lg z-50">
 
-    <hr class="border-gold my-1" />
+            <div class="opcion-menu deshabilitado">
+              🔒 Torneos Creados <small class="proximamente">(Próximamente)</small>
+            </div>
 
-    <div @click="irAPartidos" class="opcion-menu">⚽ Partidos Creados</div>
-  </div>
-</div>
-<div class="relative inline-block text-left" @mouseleave="mostrarMenu2 = false">
-  <button @click="mostrarMenu2 = !mostrarMenu2" class="boton-creados">
-    Eventos finalizados▼
-  </button>
-  <div v-if="mostrarMenu2" class="menu-creados absolute right-0 mt-2 w-48 bg-black text-white border border-gold rounded shadow-lg z-50">
-    
-    <hr class="border-gold my-1" />
-    
-    <div class="opcion-menu deshabilitado">
-      🔒 Torneos Finalizados <small class="proximamente">(Próximamente)</small>
-    </div>
-    
-    <hr class="border-gold my-1" />
-    
-    <div @click="irAFinalizados" class="opcion-menu">⚽ Partidos Finalizados</div>
-  </div>
-</div>
+            <hr class="border-gold my-1" />
+
+            <div @click="irAPartidos" class="opcion-menu">⚽ Partidos Creados</div>
+          </div>
+        </div>
+        <div class="relative inline-block text-left" @mouseleave="mostrarMenu2 = false">
+          <button @click="mostrarMenu2 = !mostrarMenu2" class="boton-creados">
+            Eventos finalizados▼
+          </button>
+          <div v-if="mostrarMenu2"
+            class="menu-creados absolute right-0 mt-2 w-48 bg-black text-white border border-gold rounded shadow-lg z-50">
+
+            <hr class="border-gold my-1" />
+
+            <div class="opcion-menu deshabilitado">
+              🔒 Torneos Finalizados <small class="proximamente">(Próximamente)</small>
+            </div>
+
+            <hr class="border-gold my-1" />
+
+            <div @click="irAFinalizados" class="opcion-menu">⚽ Partidos Finalizados</div>
+          </div>
+        </div>
       </div>
     </div>
     <div>
@@ -82,7 +84,8 @@
         </div>
         <div class="uno_solo">
           <div class="rules-container">
-            <button @mouseover="showRules('torneo', index)" @mouseleave="hideRules('torneo', index)" class="torn_boton">Ver Reglas</button>
+            <button @mouseover="showRules('torneo', index)" @mouseleave="hideRules('torneo', index)"
+              class="torn_boton">Ver Reglas</button>
             <div v-if="activeRules.torneo === index" class="rules-info-tor">
               <p class="reglas">Reglas del Torneo: {{ item.reglas }}</p>
             </div>
@@ -97,94 +100,99 @@
           <img :src="getImagenUrl(item.logomatch)" alt="Logo del partido" class="logo-img" />
           <div class="card-info-tor">
             <h2 class="titu">Partido: {{ item.name }}</h2>
-            <span class="letra-tit">Creador:</span> 
+            <span class="letra-tit">Creador:</span>
             <div class="creador-info">
               <img :src="getImagenUrl(item.creador.nombre)" alt="Logo del Creador" class="logo-pequeno" />
               <p class="letrass">{{ item.creador.logo }}</p>
             </div>
             <p class="letrass"> <span class="letra-tit"> Partido:</span>{{ item.hora }}</p>
-            <p class="letrass"> <span class="letra-tit"> Tipo:</span>{{ item.tipo_futbol}}</p>
+            <p class="letrass"> <span class="letra-tit"> Tipo:</span>{{ item.tipo_futbol }}</p>
             <p class="letrass"> <span class="letra-tit"> Apuesta: $</span> {{ item.apuesta }}</p>
-            <p class="letrass"> <span class="letra-tit"> Ubicación:</span>  {{ item.ubicacionpartido }}</p>
-            <span class="letra-tit">equipo local:</span> 
+            <p class="letrass"> <span class="letra-tit"> Ubicación:</span> {{ item.ubicacionpartido }}</p>
+            <span class="letra-tit">equipo local:</span>
             <div class="equipo-info">
               <img :src="getImagenUrl(item.equipo_local.logo)" alt="Logo del Equipo" class="logo-pequeno" />
               <p class="letrass">{{ item.equipo_local.nombre }}</p>
             </div>
-            
+
           </div>
           <button class="action-button-tor2" @click="verDetalles(item)">Ver Detalles</button>
           <button class="action-button-tor" @click="unirsePartido(item.id_Partido)">Unirse</button>
-          
-    
+
+
         </div>
-       
+
       </div>
     </div>
 
     <!-- Modal para detalles del partido -->
     <div v-if="mostrarModal" class="modal-overlay2" @click.self="cerrarModal">
-    <div class="modal-content2">
-      <h2 class="dettt">Detalles del Partido</h2>
-      
-      <!-- Logo y nombre del partido -->
-      <div class="modal-section">
-        <strong class="let">partido:</strong>
-        <img :src="getImagenUrl(partidoSeleccionado.logomatch)" alt="Logo del Partido" class="logo-modal" />
-        <p class="dettt">{{ partidoSeleccionado.name }}</p>
+      <div class="modal-content2">
+        <h2 class="dettt">Detalles del Partido</h2>
+
+        <!-- Logo y nombre del partido -->
+        <div class="modal-section">
+          <strong class="let">partido:</strong>
+          <img :src="getImagenUrl(partidoSeleccionado.logomatch)" alt="Logo del Partido" class="logo-modal" />
+          <p class="dettt">{{ partidoSeleccionado.name }}</p>
+        </div>
+        <!-- Creador -->
+        <div class="modal-section">
+          <span><strong class="let">creador:</strong></span>
+          <img :src="getImagenUrl(partidoSeleccionado.creador.nombre)" alt="Logo del Creador" class="logo-modal" />
+          <button class="inspect-button" @click="irACreador(partidoSeleccionado.creador.documento)"
+            @mouseover="tooltipCreador = true" @mouseleave="tooltipCreador = false">
+            {{ partidoSeleccionado.creador.logo }}
+          </button>
+          <span v-if="tooltipCreador" class="tooltip">Inspeccionar</span>
+        </div>
+        <div class="modal-section">
+          <strong class="let">equipo local:</strong>
+          <img :src="getImagenUrl(partidoSeleccionado.equipo_local.logo)" alt="Logo del Equipo Local"
+            class="logo-modal" />
+          <button class="inspect-button" @click="irAEquipo(partidoSeleccionado.equipo_local.id)"
+            @mouseover="tooltipEquipo = true" @mouseleave="tooltipEquipo = false">
+            <strong class="nombre-partido">{{ partidoSeleccionado.equipo_local.nombre }} </strong>
+          </button>
+          <span v-if="tooltipEquipo" class="tooltip">Inspeccionar</span>
+        </div>
+
+        <!-- Datos del partido -->
+        <div class="modal-section2">
+          <strong class="titulo-detalle">Detalles del Partido:</strong>
+          <p><strong>Hora:</strong> <span class="detalle-texto">{{ partidoSeleccionado.hora }}</span></p>
+          <p><strong>Dia:</strong> <span class="detalle-texto">{{ partidoSeleccionado.dia }}</span></p>
+          <p><strong>Apuesta:</strong> <span class="detalle-texto">${{ partidoSeleccionado.apuesta }}</span></p>
+          <p><strong>Tipo:</strong> <span class="detalle-texto">{{ partidoSeleccionado.tipo_futbol }}</span></p>
+          <p><strong>Reglas:</strong> <span class="detalle-texto">{{ partidoSeleccionado.reglas }}</span></p>
+          <div class="modal-section">
+            <strong class="let">Cancha:</strong>
+            <img :src="getImagenUrl(partidoSeleccionado.imagen_cancha)" alt="Imagen de la Cancha"
+              class="imagen-cancha-modal" />
+          </div>
+          <p><strong>Como llegar:</strong> <span class="detalle-texto">{{ partidoSeleccionado.como_llegar }}</span></p>
+          <p><strong>Ubicación:</strong> <span class="detalle-texto">{{ partidoSeleccionado.ubicacionpartido }}</span>
+          </p>
+          <button class="map-button" @click="verEnMapa(partidoSeleccionado.ubicacionpartido)">
+            📍 Ver ubicación en mapa
+          </button>
+
+        </div>
+        <!-- Equipo local -->
+        <div>
+          <button class="action-button-tor3" @click="unirsePartido(partidoSeleccionado.idPartido)">Unirse</button>
+        </div>
+
+        <button class="close-button2" @click="cerrarModal">Cerrar</button>
       </div>
-      <!-- Creador -->
-      <div class="modal-section">
-        <span><strong class="let">creador:</strong></span>
-        <img :src="getImagenUrl(partidoSeleccionado.creador.nombre)" alt="Logo del Creador" class="logo-modal" />
-        <button class="inspect-button"  @click="irACreador(partidoSeleccionado.creador.documento)"  @mouseover="tooltipCreador = true" @mouseleave="tooltipCreador = false">
-          {{ partidoSeleccionado.creador.logo }}
-        </button>
-        <span v-if="tooltipCreador" class="tooltip">Inspeccionar</span>
-      </div>
-      <div class="modal-section">
-        <strong class="let">equipo local:</strong>
-        <img :src="getImagenUrl(partidoSeleccionado.equipo_local.logo)" alt="Logo del Equipo Local" class="logo-modal" />
-        <button class="inspect-button"   @click="irAEquipo(partidoSeleccionado.equipo_local.id)" @mouseover="tooltipEquipo = true" @mouseleave="tooltipEquipo = false">
-          <strong class="nombre-partido">{{ partidoSeleccionado.equipo_local.nombre }} </strong>
-        </button>
-        <span v-if="tooltipEquipo" class="tooltip">Inspeccionar</span>
-      </div>
-      
-      <!-- Datos del partido -->
-      <div class="modal-section2">
-  <strong class="titulo-detalle">Detalles del Partido:</strong>
-  <p><strong>Hora:</strong> <span class="detalle-texto">{{ partidoSeleccionado.hora }}</span></p>
-  <p><strong>Dia:</strong> <span class="detalle-texto">{{ partidoSeleccionado.dia }}</span></p>
-  <p><strong>Apuesta:</strong> <span class="detalle-texto">${{ partidoSeleccionado.apuesta }}</span></p>
-  <p><strong>Tipo:</strong> <span class="detalle-texto">{{ partidoSeleccionado.tipo_futbol }}</span></p>
-  <p><strong>Reglas:</strong> <span class="detalle-texto">{{ partidoSeleccionado.reglas }}</span></p>
-  <div class="modal-section">
-    <strong class="let">Cancha:</strong>
-<img :src="getImagenUrl(partidoSeleccionado.imagen_cancha)" alt="Imagen de la Cancha" class="imagen-cancha-modal" />
-  </div>
-  <p><strong>Como llegar:</strong> <span class="detalle-texto">{{ partidoSeleccionado.como_llegar }}</span></p>
-  <p><strong>Ubicación:</strong> <span class="detalle-texto">{{ partidoSeleccionado.ubicacionpartido }}</span></p>
-  <button class="map-button" @click="verEnMapa(partidoSeleccionado.ubicacionpartido)">
-    📍 Ver ubicación en mapa
-  </button>
-  
-</div>
-      <!-- Equipo local -->
-       <div>
-        <button class="action-button-tor3" @click="unirsePartido(partidoSeleccionado.idPartido)">Unirse</button>
-       </div>
-     
-      <button class="close-button2" @click="cerrarModal">Cerrar</button>
+
     </div>
-    
-  </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';  
+import axios from 'axios';
 import { useUsuarios } from '@/stores/usuario';
 import { useRouter } from 'vue-router';
 import Headerapp from '../layout/Headerapp.vue';
@@ -205,6 +213,7 @@ const mostrarModal = ref(false);
 const partidoSeleccionado = ref(null);
 const tooltipCreador = ref(false);
 const tooltipEquipo = ref(false);
+
 
 
 const irACreador = (documentoCreador) => {
@@ -259,7 +268,8 @@ const getTorneos = async () => {
     const response = await axios.get(`http://localhost:8000/torneosDisponibles/${idUsuario}`);
     torneos.value = response.data.torneos; // Asumiendo que la respuesta tiene una propiedad 'torneos'
   } catch (error) {
-    console.error('Error al obtener los torneos:', error);
+    throw new Error("Error al obtener los torneos");
+
   }
 };
 
@@ -267,14 +277,26 @@ const getTorneos = async () => {
 const getPartidos = async () => {
   try {
     const idUsuario = datos.usuario.documento;
-    const idEquipo = datos.usuario.equipo_tiene; 
-
+    const idEquipo = datos.usuario.equipo_tiene;
     const response = await axios.get(`http://localhost:8000/listar_partidos_filtrados/${idUsuario}/${idEquipo}`);
     partidos.value = response.data;
   } catch (error) {
-    console.error('Error al obtener los partidos:', error);
+    throw new Error("Error al obtener los partidos");
+
   }
 };
+
+
+onMounted(async() => {
+  if (partidos.value && partidos.value.length > 0 && torneos.value && torneos.value.length>0 ) {
+    await getPartidos();
+    await getTorneos();
+    
+  } else {
+    throw new Error("Error al obtener");
+
+  }
+})
 
 const verEnMapa = (ubicacion) => {
   const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ubicacion)}`;
@@ -305,7 +327,6 @@ const unirsePartido = async (idPartido) => {
     const response = await axios.post(`http://localhost:8000/solicitar_unirse/`, solicitud);
     alert(response.data.mensaje); // Muestra el mensaje del backend
   } catch (error) {
-    console.error('Error al unirse al partido:', error);
     alert('tu equipo ya envio solicitud a este partido.');
   }
 };
@@ -342,49 +363,45 @@ const filteredPartidos = computed(() => {
   );
 });
 
-onMounted(() => {
-  getTorneos();
-  getPartidos();
-});
 </script>
 
-  
-  <style scoped>
 
-
-
+<style scoped>
 .letrass {
-  font-family:'Times New Roman', Times, serif;
+  font-family: 'Times New Roman', Times, serif;
   color: rgb(173, 173, 173);
 }
 
-  .letra-tit{
-    color: #ffffff;
-    text-shadow: #ffe100 0 0 5px;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 21px
-  }
-  .creador-info{
-    display: flex;
+.letra-tit {
+  color: #ffffff;
+  text-shadow: #ffe100 0 0 5px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 21px
+}
+
+.creador-info {
+  display: flex;
   align-items: center;
   border-bottom: 2px white solid;
- 
-  }
-  .search-container{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    align-content: space-between;
-  
-    justify-content: space-between;
-  }
 
-.uno_solo{
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-content: space-between;
+
+  justify-content: space-between;
+}
+
+.uno_solo {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
-  .main-container {
+
+.main-container {
   padding: 20px;
   text-align: center;
   display: flex;
@@ -398,7 +415,7 @@ onMounted(() => {
 
 }
 
-.buscador_torneo{
+.buscador_torneo {
   display: flex;
   flex-direction: row;
   margin-bottom: 2%;
@@ -408,7 +425,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  
+
 }
 
 .search-bar {
@@ -420,7 +437,7 @@ onMounted(() => {
 }
 
 .view-games-button {
-  
+
   background-color: #0c0452;
   color: white;
   padding: 10px 20px;
@@ -435,13 +452,15 @@ onMounted(() => {
 
 .card-list {
   display: flex;
-  flex-direction: column; /* Mostrar en vertical */
+  flex-direction: column;
+  /* Mostrar en vertical */
   gap: 20px;
 }
 
 .card3 {
   color: white;
-  width: 60vw; /* 60% del ancho de la vista del usuario */
+  width: 60vw;
+  /* 60% del ancho de la vista del usuario */
   min-height: 100%;
   min-width: 150%;
   background-color: #000000;
@@ -450,9 +469,12 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: none; /* Sin bordes redondeados */
-  box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
-  overflow: hidden; /* Asegura que no haya bordes redondeados */
+  border: none;
+  /* Sin bordes redondeados */
+  box-sizing: border-box;
+  /* Asegura que el padding no aumente el ancho total */
+  overflow: hidden;
+  /* Asegura que no haya bordes redondeados */
   position: relative;
   right: 10%;
   gap: 50px;
@@ -460,7 +482,8 @@ onMounted(() => {
   margin-bottom: 30px;
 }
 
-.card-header-tor, .card-header-match {
+.card-header-tor,
+.card-header-match {
   display: flex;
   align-items: center;
   gap: 50px;
@@ -470,13 +493,14 @@ onMounted(() => {
   width: 15%;
   height: 15%;
   object-fit: cover;
-  
+
   border: solid white;
 }
 
-.card-info-tor, .card-info-match {
+.card-info-tor,
+.card-info-match {
   flex-grow: 1;
-  
+
   text-align: left;
   font-size: 120%;
   width: 10%;
@@ -489,23 +513,28 @@ onMounted(() => {
   font-size: 90%;
 }
 
-.card-info-tor, .card-info-match {
-  flex-grow: 0; /* Elimina el crecimiento del elemento */
+.card-info-tor,
+.card-info-match {
+  flex-grow: 0;
+  /* Elimina el crecimiento del elemento */
   text-align: left;
   font-size: 120%;
-  width: auto; /* Elimina la ocupación total del ancho */
-  display: inline-block; /* Solo ocupa el ancho del contenido */
+  width: auto;
+  /* Elimina la ocupación total del ancho */
+  display: inline-block;
+  /* Solo ocupa el ancho del contenido */
 }
 
 .titulo_torneo {
-margin-top: 20%;
-text-align: center;
+  margin-top: 20%;
+  text-align: center;
   text-shadow: 0 0 6px rgb(255, 255, 255);
   color: #ffffff;
   font-size: 250%;
 }
 
-.action-button-tor, .action-button-match {
+.action-button-tor,
+.action-button-match {
   margin-top: 10px;
   background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/549/015/small/vector-apr-2018-19.jpg");
   height: auto;
@@ -519,9 +548,11 @@ text-align: center;
   font-family: 'Times New Roman', Times, serif;
   text-shadow: 0 0 5px black;
   font-weight: bold;
-  transition: all 0.3s ease; /* Transición suave */
+  transition: all 0.3s ease;
+  /* Transición suave */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
+
 .action-button-tor2 {
   margin-top: 2px;
   background-color: #989898;
@@ -535,13 +566,17 @@ text-align: center;
   font-weight: bold;
   transition: all 0.3s ease;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 5px; /* Bordes redondeados */
+  border-radius: 5px;
+  /* Bordes redondeados */
 }
 
 .action-button-tor2:hover {
-  background-color: #7a7a7a; /* Color más oscuro al pasar el cursor */
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  background-color: #7a7a7a;
+  /* Color más oscuro al pasar el cursor */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+  /* Sombra más intensa */
+  transform: scale(1.05);
+  /* Aumenta ligeramente el tamaño */
 }
 
 .action-button-tor3 {
@@ -557,7 +592,8 @@ text-align: center;
   font-family: 'Times New Roman', Times, serif;
   text-shadow: 0 0 5px black;
   font-weight: bold;
-  transition: all 0.3s ease; /* Transición suave */
+  transition: all 0.3s ease;
+  /* Transición suave */
   border-radius: 20px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
@@ -576,21 +612,29 @@ text-align: center;
   font-family: 'Times New Roman', Times, serif;
   text-shadow: 0 0 5px black;
   font-weight: bold;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Transición suave */
   border-radius: 20px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Hover mejorado */
 .action-button-tor:hover {
-  transform: translateY(-3px); /* Efecto de elevación */
-  box-shadow: 0 12px 20px rgba(255, 255, 255, 0.3); /* Sombra más brillante */
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Brillo sutil en el texto */
+  transform: translateY(-3px);
+  /* Efecto de elevación */
+  box-shadow: 0 12px 20px rgba(255, 255, 255, 0.3);
+  /* Sombra más brillante */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  /* Brillo sutil en el texto */
 }
+
 .action-button-tor3:hover {
-  transform: translateY(-3px); /* Efecto de elevación */
-  box-shadow: 0 12px 20px rgba(255, 255, 255, 0.3); /* Sombra más brillante */
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Brillo sutil en el texto */
+  transform: translateY(-3px);
+  /* Efecto de elevación */
+  box-shadow: 0 12px 20px rgba(255, 255, 255, 0.3);
+  /* Sombra más brillante */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  /* Brillo sutil en el texto */
 }
 
 
@@ -614,15 +658,20 @@ text-align: center;
   font-size: 170%;
   font-weight: bold;
   text-align: center;
-  
+
   background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/549/015/small/vector-apr-2018-19.jpg");
-  background-size: cover; /* Ajusta el tamaño de la imagen para que cubra todo el texto */
+  background-size: cover;
+  /* Ajusta el tamaño de la imagen para que cubra todo el texto */
   background-clip: text;
-  -webkit-background-clip: text; /* Para navegadores que requieren prefijo */
-  color: transparent; /* Hace el texto transparente para mostrar el fondo */
-  text-shadow: none; /* Elimina sombras en el texto si hay */
+  -webkit-background-clip: text;
+  /* Para navegadores que requieren prefijo */
+  color: transparent;
+  /* Hace el texto transparente para mostrar el fondo */
+  text-shadow: none;
+  /* Elimina sombras en el texto si hay */
 }
-.search-input{
+
+.search-input {
   font-size: 140%;
   border: 2px solid transparent;
   width: 15em;
@@ -648,10 +697,13 @@ text-align: center;
 
   left: 300%;
   background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/549/015/small/vector-apr-2018-19.jpg");
-  background-size: cover; /* Ajusta el tamaño de la imagen para que cubra todo el texto */
+  background-size: cover;
+  /* Ajusta el tamaño de la imagen para que cubra todo el texto */
   background-clip: text;
-  -webkit-background-clip: text; /* Para navegadores que requieren prefijo */
-  color: transparent; /* Hace el texto transparente para mostrar el fondo */
+  -webkit-background-clip: text;
+  /* Para navegadores que requieren prefijo */
+  color: transparent;
+  /* Hace el texto transparente para mostrar el fondo */
   text-shadow: none;
 }
 
@@ -679,7 +731,8 @@ text-align: center;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* fondo oscuro translúcido */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* fondo oscuro translúcido */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -787,7 +840,8 @@ text-align: center;
 .border-gold {
   border-color: gold;
 }
-.logo-pequeno{
+
+.logo-pequeno {
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -795,11 +849,13 @@ text-align: center;
   margin-right: 10px;
   margin-bottom: 10px;
 }
-.equipo-info{
+
+.equipo-info {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .modal-overlay2 {
   position: fixed;
   top: 0;
@@ -820,8 +876,10 @@ text-align: center;
   padding: 20px;
   border-radius: 10px;
   width: 400px;
-  max-height: 80vh; /* Limita la altura del modal */
-  overflow-y: auto; /* Agrega barra de desplazamiento vertical */
+  max-height: 80vh;
+  /* Limita la altura del modal */
+  overflow-y: auto;
+  /* Agrega barra de desplazamiento vertical */
   text-align: center;
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
   border: 1px solid #FFD700;
@@ -838,6 +896,7 @@ text-align: center;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
 }
+
 .modal-section2 {
   display: flex;
   flex-direction: column;
@@ -848,7 +907,8 @@ text-align: center;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
   text-align: left;
-} 
+}
+
 .logo-modal {
   width: 40px;
   height: 40px;
@@ -898,6 +958,7 @@ text-align: center;
   color: #000;
   box-shadow: 0 0 10px #FFD700;
 }
+
 .titulo-detalle {
   font-size: 1.4rem;
   color: #FFD700;
@@ -909,11 +970,13 @@ text-align: center;
   margin-bottom: 8px;
   letter-spacing: 1px;
 }
+
 .detalle-texto {
   font-weight: bold;
   color: #fff;
   font-size: 1rem;
 }
+
 .modal-section2 p {
   display: flex;
   justify-content: space-between;
@@ -946,36 +1009,55 @@ text-align: center;
   justify-content: center;
   gap: 8px;
 }
+
 .map-button:hover {
   background: linear-gradient(45deg, #FFB800, #FFD700);
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
+
 .let {
   color: rgb(255, 255, 255);
-  font-size: 1.1rem; /* Tamaño de letra más grande */
-  font-weight: bold; /* Negrita */
-  text-transform: uppercase; /* Convertir el texto en mayúsculas */
-  text-shadow: 2px 2px 5px rgba(255, 242, 0, 0.5); /* Sombra roja suave */
-  letter-spacing: 1px; /* Espaciado entre letras */
-  font-family: 'Poppins', sans-serif; /* Fuente moderna */
+  font-size: 1.1rem;
+  /* Tamaño de letra más grande */
+  font-weight: bold;
+  /* Negrita */
+  text-transform: uppercase;
+  /* Convertir el texto en mayúsculas */
+  text-shadow: 2px 2px 5px rgba(255, 242, 0, 0.5);
+  /* Sombra roja suave */
+  letter-spacing: 1px;
+  /* Espaciado entre letras */
+  font-family: 'Poppins', sans-serif;
+  /* Fuente moderna */
 }
 
-.dettt{
+.dettt {
 
-  color: #ffffff; /* Dorado */
-  font-size: 1.1rem; /* Más grande que los demás textos */
-  font-weight: bold; /* Negrita */
-  text-transform: uppercase; /* Convertir en mayúsculas */
-  text-shadow: 3px 3px 8px rgba(255, 215, 0, 0.8); /* Sombra más fuerte */
-  font-family: 'Poppins', sans-serif; /* Fuente elegante */
-  text-align: center; /* Centrado */
-  display: block; /* Para ocupar toda la línea */
-  margin-bottom: 10px; /* Espaciado debajo */
-  border-radius: 8px; /* Bordes redondeados */
+  color: #ffffff;
+  /* Dorado */
+  font-size: 1.1rem;
+  /* Más grande que los demás textos */
+  font-weight: bold;
+  /* Negrita */
+  text-transform: uppercase;
+  /* Convertir en mayúsculas */
+  text-shadow: 3px 3px 8px rgba(255, 215, 0, 0.8);
+  /* Sombra más fuerte */
+  font-family: 'Poppins', sans-serif;
+  /* Fuente elegante */
+  text-align: center;
+  /* Centrado */
+  display: block;
+  /* Para ocupar toda la línea */
+  margin-bottom: 10px;
+  /* Espaciado debajo */
+  border-radius: 8px;
+  /* Bordes redondeados */
 
 
 }
+
 .imagen-cancha-modal {
   width: 100%;
   max-height: 250px;
@@ -983,6 +1065,7 @@ text-align: center;
   border-radius: 10px;
   margin-top: 10px;
 }
+
 @media (max-width: 767px) {
   .search-container {
     flex-direction: column;
@@ -1056,6 +1139,4 @@ text-align: center;
   color: #aaa;
   margin-left: 0.5rem;
 }
-
-  </style>
-  
+</style>

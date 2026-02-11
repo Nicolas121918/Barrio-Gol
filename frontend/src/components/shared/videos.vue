@@ -84,6 +84,8 @@ export default {
       videosurls: [],
       currentIndex: 0,
       likedVideos: {},
+      likedIndex : null
+      
     };
   },
   computed: {
@@ -138,6 +140,7 @@ export default {
       const store = useUsuarios();
       const video = this.videosurls[index];
       if (!store.usuario.documento) return;
+      this.likedIndex = index
 
       try {
         this.likedVideos = {

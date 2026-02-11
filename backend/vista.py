@@ -45,6 +45,7 @@ app.mount("/images_container/equipos/logosteams", StaticFiles(directory="images_
 app.mount("/images_container/sistema/media", StaticFiles(directory="images_container/sistema/media"), name="media")
 app.mount("/images_container/sistema/micarpeta", StaticFiles(directory="images_container/sistema/micarpeta"), name="micarpeta")
 app.mount("/images_container/uploads/videos", StaticFiles(directory="images_container/uploads/videos"), name="videos")
+app.mount("/videos", StaticFiles(directory="videos"), name="videos")
 
 
 ## permisos endpoints
@@ -856,7 +857,7 @@ router = APIRouter()
 async def subir_video(
     correo: str = Form(...),
     video: UploadFile = File(...),
-    descripcion: str = Form(...),  # Nuevo campo
+    descripcion: str = Form(...),  
     db: Session = Depends(get_db),
 ):
     if video.content_type not in ["video/mp3", "video/mp4", "video/mkv", "video/avi", "video/mov", "video/webm"]:

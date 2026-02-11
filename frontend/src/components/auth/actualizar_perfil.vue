@@ -79,6 +79,7 @@ import Swal from 'sweetalert2';
 import Headerapp from "../layout/Headerapp.vue";
 import headermobile from "../layout/headermobile.vue";
 import { useUsuarios } from "@/stores/usuario";
+import { errorMessages } from "@vue/compiler-core";
 
 const movistore = useUsuarios();
 const mostrar = ref(true);
@@ -128,17 +129,15 @@ const volver = () => {
 // Función para actualizar la foto de perfil
 const actualizarFoto = async () => {
   const correo = movistore.usuario?.correo;
-  console.log("correo" + movistore.usuario.correo)
 
   if (!correo) {
-    console.error("Correo no encontrado.");
-    return;
+    throw new Error("Correo invalido");
+    
   }
 
   // Verificar que un archivo haya sido seleccionado
   if (!archivoSeleccionado.value) {
-    console.error("No se ha seleccionado una imagen.");
-    return;
+    throw new Error("No se ha seleccionado una imagen.");
   }
 
   // Crear un FormData para enviar el archivo
@@ -173,8 +172,6 @@ const actualizarFoto = async () => {
       movistore.usuario.fileInput = nuevaRuta;  // Asegurando que el estado local también se actualice
     }
   } catch (error) {
-    console.error('Error al actualizar la foto:', error);
-    console.log(error)
     Swal.fire({
       icon: 'error',
       title: 'Error al actualizar la foto',
@@ -199,9 +196,6 @@ const actualizarNombre = async () => {
 
     // Obtener el correo desde localStorage
     const usuario = movistore.usuario.correo
-    
-    // Verificar si el objeto 'usuario' es válido
-    console.log(usuario);  // Aquí verificamos el contenido de 'usuario'
 
     if (!usuario) {
       Swal.fire({
@@ -225,10 +219,6 @@ const actualizarNombre = async () => {
     // Crear el cuerpo de la solicitud utilizando URLSearchParams
     const formData = new URLSearchParams();
     formData.append('nombre', nuevoNombre.value);  // Agregar el nuevo nombre
-
-    // Verificar que la URL y los parámetros están correctos
-    console.log(`Enviando correo: ${correo}`);
-    console.log(`Nuevo nombre: ${nuevoNombre.value}`);
 
     // Realizar la solicitud PUT al backend
     const response = await axios.put(
@@ -262,7 +252,6 @@ const actualizarNombre = async () => {
       title: "Error al actualizar",
       text: error.response?.data?.detail || "Ocurrió un error al actualizar el nombre.",
     });
-    console.error("Error al actualizar el nombre:", error);
   }
 };
 
@@ -333,7 +322,6 @@ const actualizarCiudad = async () => {
     }
   } catch (error) {
     // Manejar errores del backend o de red
-    console.error("Error al actualizar la ciudad:", error);
     Swal.fire({
       icon: "error",
       title: "Error al actualizar la ciudad",
@@ -410,7 +398,6 @@ const actualizarDescripcion = async () => {
     }
   } catch (error) {
     // Manejar errores del backend o de red
-    console.error("Error al actualizar la descripción:", error);
     Swal.fire({
       icon: "error",
       title: "Error al actualizar la descripción",

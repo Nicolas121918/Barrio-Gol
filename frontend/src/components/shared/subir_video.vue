@@ -1,6 +1,12 @@
 <template>
   <header>
-    <headerapp></headerapp>
+    <div class="d-none d-md-block">
+        <headerapp></headerapp>
+    </div>
+    <div class="d-block d-md-none">
+      <headermobile></headermobile>
+    </div>
+  
   </header>
   <router-link to="/videos" class="volver">
     <button class="volver-button">Volver</button>
@@ -31,7 +37,8 @@ import { ref } from "vue";
 import axios from "axios";
 import { useUsuarios } from "@/stores/usuario";
 import { useRouter } from "vue-router"; // Importar useRouter
-
+import Headerapp from "../layout/Headerapp.vue";
+import headermobile from "../layout/headermobile.vue";
 // Store de usuario
 const usuarioStore = useUsuarios();
 const router = useRouter(); // Crear una instancia del router
