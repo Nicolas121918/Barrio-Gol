@@ -33,6 +33,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import func
 from private_routes import privateroutes
 import shutil
+import uuid
 
 app = FastAPI()
 
@@ -46,6 +47,9 @@ app.mount("/images_container/sistema/media", StaticFiles(directory="images_conta
 app.mount("/images_container/sistema/micarpeta", StaticFiles(directory="images_container/sistema/micarpeta"), name="micarpeta")
 app.mount("/images_container/uploads/videos", StaticFiles(directory="images_container/uploads/videos"), name="videos")
 app.mount("/videos", StaticFiles(directory="videos"), name="videos")
+app.mount("/images_container/uploads/users", StaticFiles(directory="images_container/uploads/users"), name="users")
+app.mount("/sistema", StaticFiles(directory="sistema"), name="sistema")
+
 
 
 ## permisos endpoints
@@ -118,23 +122,26 @@ async def iniciar_sesion(login: LoginRequest, response: Response, db: Session = 
         "posicion" : cliente.posicion,
         "equiposTiene": cliente.equipo_tiene,
     }
+    
 ## Endpoint Para Registrar usuarios
+
 @app.post("/insertarc", response_model=clie)
 async def registrar_cliente(
     documento: int = Form(...),
-    fecha_nacimiento : str = Form(...),
+    fecha_nacimiento: str = Form(...),
     nombre: str = Form(...),
-    ciudad : str = Form(...),
-    descripcion : str = Form(...),
+    ciudad: str = Form(...),
+    descripcion: str = Form(...),
     correo: str = Form(...),
     contraseña: str = Form(...),
     file: UploadFile = File(None),
-    celular : str = Form(...),
-    Edad : int = Form(...),
-    posicion : str = Form(...),
+    celular: str = Form(...),
+    Edad: int = Form(...),
+    posicion: str = Form(...),
     equipos_tiene: Optional[int] = Form(None),
     db: Session = Depends(get_db)
 ):
+    # Validaciones de existencia
     cliente_existente = db.query(Registro).filter(Registro.correo == correo).first()
     Name_Exist = db.query(Registro).filter(Registro.nombre == nombre).first()
     documento_existente = db.query(Registro).filter(Registro.documento == documento).first()
@@ -145,18 +152,36 @@ async def registrar_cliente(
         raise HTTPException(status_code=400, detail="El Nombre Ya Esta Registrado")
     if documento_existente:
         raise HTTPException(status_code=400, detail="El documento ya está registrado")
+    
     if file and file.content_type not in ["image/jpeg", "image/png", "image/gif", "image/bmp", "image/svg+xml", "image/webp"]:
         raise HTTPException(status_code=400, detail="Formato de archivo no soportado")
     
+    ruta_Imagen = None
     if file:
-        file_location = f"micarpeta/{file.filename}"
-        os.makedirs("micarpeta", exist_ok=True)
+        # Definimos la ruta de la carpeta 
+        folder_path = os.path.join("images_container", "uploads", "users")
+        
+        # Creamos la estructura completa de carpetas
+        os.makedirs(folder_path, exist_ok=True)
+        
+        # Generamos un nombre único para evitar sobrescribir archivos
+        nombre_archivo = f"{uuid.uuid4()}_{file.filename}"
+        file_location = os.path.join(folder_path, nombre_archivo)
+
+        # Guardamos el archivo físicamente
         with open(file_location, "wb") as buffer:
             buffer.write(await file.read())
-        ruta_Imagen = f"micarpeta/{file.filename}"
+        
+        # Guardamos la ruta relativa para que el Frontend la acceda vía el mount
+        ruta_Imagen = f"images_container/uploads/users/{nombre_archivo}"
+    else:
+        # Asignar una imagen por defecto si no suben nada
+        ruta_Imagen = "sistema/image.png"
 
+    # Encriptación de contraseña
     encriptacion = bcrypt.hashpw(contraseña.encode('utf-8'), bcrypt.gensalt())
 
+    #  Creación del nuevo cliente
     nuevo_cliente = Registro(
         descripcion=descripcion,
         documento=documento,
@@ -168,16 +193,18 @@ async def registrar_cliente(
         Edad=Edad,
         posicion=posicion,
         contraseña=encriptacion.decode('utf-8'),
-        imagen=ruta_Imagen if file else None,
-        equipo_tiene=equipos_tiene  # Se añade la asignación correcta
+        imagen=ruta_Imagen,
+        equipo_tiene=equipos_tiene 
     )
-    # Crear el registro en la tabla de datos de contacto del usuario
+
+    #  Creación de datos de contacto
     datos_contacto_usuario = Contacto_usuarios(
         nombre=nombre,
         email=correo,
         celular=celular,
-        usuario_documento=documento  # Relacionamos con el usuario creado
+        usuario_documento=documento
     )
+    
     
     db.add(nuevo_cliente)
     db.add(datos_contacto_usuario)
@@ -185,8 +212,6 @@ async def registrar_cliente(
     db.refresh(nuevo_cliente)
 
     return nuevo_cliente
-
-
 
 #endpoint para ver los videos
 @app.get("/listarvideos")

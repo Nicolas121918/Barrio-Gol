@@ -54,6 +54,22 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { onMounted,onBeforeUnmount } from 'vue';
+
+
+const fecha = ref('')
+onMounted(() => {
+  
+  // Actualiza la fecha cada segundo
+  const interval = setInterval(() => {
+    fecha.value = new Date().toLocaleString();
+  }, 1000);
+
+  onBeforeUnmount(() => {
+    clearInterval(interval);
+  });
+});
 
 
 </script>
@@ -337,33 +353,6 @@ display: block;
     border-right-width: 1px;
   }
 }
-
-@media (min-width: 1281px) and (max-width: 1440px) {
-  /* Estilos para pantallas entre 1281px y 1440px */
-}
-
-
-
-@media (min-width: 1441px) and (max-width: 1920px) {
-  /* Estilos para pantallas entre 1441px y 1920px */
-}
-
-@media (min-width: 1921px) and (max-width: 2560px) {
-  /* Estilos para pantallas entre 1921px y 2560px */
-}
-
-@media (min-width: 2561px) and (max-width: 3840px) {
-  /* Estilos para pantallas entre 2561px y 3840px */
-}
-
-
-@media (min-width: 3841px) and (max-width: 5120px) {
-  /* Estilos para pantallas entre 3841px y 5120px */
-}
-
-
-
-
 
 
 </style>

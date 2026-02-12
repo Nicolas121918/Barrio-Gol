@@ -37,7 +37,7 @@
     </router-link></a>
             </li>
             <li class="nav-item">
-             <button v-on:click="cerrarSesion">cerrar sesion</button>
+             <button  v-on:click="cerrarSesion">cerrar sesion</button>
             </li>
           </ul>
         </div>
@@ -72,7 +72,8 @@ const cerrarSesion = async () => {
       showConfirmButton: false
     });
   } catch (error) {
-    console.error("Error al cerrar sesión:", error);
+    throw new Error("Error al cerrar sesión", error);
+    
   }
 };
 

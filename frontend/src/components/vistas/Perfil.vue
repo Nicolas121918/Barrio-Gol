@@ -1076,20 +1076,6 @@ transition: all 0.5s ease;
   
 }
 
-@media (min-width: 1921px) and (max-width: 2560px) {
-  /* Estilos para pantallas entre 1921px y 2560px */
-}
-
-@media (min-width: 2561px) and (max-width: 3840px) {
-  /* Estilos para pantallas entre 2561px y 3840px */
-}
-
-
-@media (min-width: 3841px) and (max-width: 5120px) {
-  /* Estilos para pantallas entre 3841px y 5120px */
-}
-
-
 
 
 </style>

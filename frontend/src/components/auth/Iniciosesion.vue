@@ -141,7 +141,7 @@
 
 
 <script setup>
-import { ref, onBeforeUnmount } from 'vue';
+import { ref, onBeforeUnmount, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useRouter } from 'vue-router';
@@ -189,6 +189,17 @@ const onFileChange = (event) => {
   if (file) {
     imageUrl.value = URL.createObjectURL(file);
     fileInput.value = file; // Guardar el archivo seleccionado
+  }
+};
+
+
+const limpiarSesionPrevia = async () => {
+  try {
+    if (usuariosStore.usuario) {
+      await usuariosStore.logout();
+    }
+  } catch (error) {
+    console.error("Error al limpiar sesión residual:", error);
   }
 };
 
@@ -363,6 +374,13 @@ const registrarUsuario = async () => {
     }
   }
 };
+onMounted(async () => {
+  usuariosStore.$reset();
+
+  await limpiarSesionPrevia();
+
+  sessionStorage.clear();
+});
 </script>
 
 

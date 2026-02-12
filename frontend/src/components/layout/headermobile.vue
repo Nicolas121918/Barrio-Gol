@@ -72,6 +72,24 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.bundle.js'
+
+
+import { ref } from 'vue';
+import { onMounted, onBeforeUnmount } from 'vue';
+
+
+const fecha = ref('')
+onMounted(() => {
+
+  // Actualiza la fecha cada segundo
+  const interval = setInterval(() => {
+    fecha.value = new Date().toLocaleString();
+  }, 1000);
+
+  onBeforeUnmount(() => {
+    clearInterval(interval);
+  });
+});
 </script>
 
 <style scoped>

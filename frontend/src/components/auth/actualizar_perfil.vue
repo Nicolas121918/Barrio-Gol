@@ -29,7 +29,7 @@
 
   <!-- Formulario para cambiar foto -->
   <section v-if="foto" class="nombre">
-    <button @click="volver"><img class="salir" src="../assets/iconos header/emblemunreadable_93487 (1).png" alt="Salir" /></button>
+    <button @click="volver"><img class="salir" :src="image_exit" alt="Salir" /></button>
     <form @submit.prevent="actualizarFoto">
       <label>Seleccione foto de perfil:</label>
       <input class="custom-file"  type="file" @change="onFileChange" accept="image/*" />
@@ -39,7 +39,7 @@
 
   <!-- Formulario para cambiar nombre -->
   <section v-if="nombre" class="nombre">
-    <button @click="volver"><img class="salir" src="../assets/iconos header/emblemunreadable_93487 (1).png" alt="Salir" /></button>
+    <button @click="volver"><img class="salir" :src="image_exit" alt="Salir" /></button>
     <form @submit.prevent="actualizarNombre">
       <label>Nuevo Nombre:</label>
       <input class="lineal" v-model="nuevoNombre" type="text" />
@@ -50,7 +50,7 @@
 
   <!-- Formulario para cambiar ciudad -->
 <section v-if="ciudad" class="nombre">
-  <button @click="volver"><img class="salir" src="../assets/iconos header/emblemunreadable_93487 (1).png" alt="Salir" /></button>
+  <button @click="volver"><img class="salir" :src="image_exit" alt="Salir" /></button>
   <form @submit.prevent="actualizarCiudad">
     <label>Nueva Ciudad:</label>
     <input v-model="nuevaCiudad" class="lineal" type="text" />
@@ -61,7 +61,7 @@
 
   <!-- Formulario para cambiar descripción -->
 <section v-if="descripcion" class="nombre">
-  <button @click="volver"><img class="salir" src="../assets/iconos header/emblemunreadable_93487 (1).png" alt="Salir" /></button>
+  <button @click="volver"><img class="salir" :src="image_exit" alt="Salir" /></button>
   <form @submit.prevent="actualizarDescripcion">
     <label>Descripción:</label>
     <textarea class="lineal" v-model="nuevaDescripcion" type="text"></textarea>
@@ -79,8 +79,7 @@ import Swal from 'sweetalert2';
 import Headerapp from "../layout/Headerapp.vue";
 import headermobile from "../layout/headermobile.vue";
 import { useUsuarios } from "@/stores/usuario";
-import { errorMessages } from "@vue/compiler-core";
-
+import image_exit from '@/assets/imagenes/boton.png'
 const movistore = useUsuarios();
 const mostrar = ref(true);
 const nombre = ref(false);
@@ -95,7 +94,6 @@ const nuevaDescripcion = ref("");
 const archivoSeleccionado = ref(null);
 
 
-// Definir las variables reactivas
 const fileInput = ref('');  // Para almacenar la URL de la imagen
 
 const onFileChange = (e) => {
@@ -142,7 +140,7 @@ const actualizarFoto = async () => {
 
   // Crear un FormData para enviar el archivo
   const formData = new FormData();
-  formData.append('file', archivoSeleccionado.value);  // Asegúrate de pasar el archivo correctamente
+  formData.append('file', archivoSeleccionado.value);
 
   try {
     // Enviar el archivo al servidor para actualizar la foto
@@ -159,14 +157,14 @@ const actualizarFoto = async () => {
       });
 
       // Obtener la nueva ruta de la imagen desde la respuesta del backend
-      const nuevaRuta = response.data.ruta;  // Ahora estamos usando "ruta" en lugar de "fileInput"
+      const nuevaRuta = response.data.ruta;  
 
       // Actualizar el objeto usuario en localStorage con la nueva ruta
-      const updatedUser = { ...movistore.usuario, fileInput: nuevaRuta };  // Usamos "fileInput" en lugar de "imagen"
+      const updatedUser = { ...movistore.usuario, fileInput: nuevaRuta }; 
       actualizar.setUsuario(updatedUser);
 
       // Actualizar la imagen de perfil en la interfaz de usuario
-      fileInput.value = nuevaRuta;  // Actualizamos la imagen reactiva
+      fileInput.value = nuevaRuta; 
 
       // También actualizar el valor de fileInput en el objeto del usuario para evitar desincronización
       movistore.usuario.fileInput = nuevaRuta;  // Asegurando que el estado local también se actualice
@@ -978,14 +976,5 @@ const actualizarDescripcion = async () => {
   color: red;
 }
 }
-
-
-@media (min-width: 3841px) and (max-width: 5120px) {
-  /* Estilos para pantallas entre 3841px y 5120px */
-}
-
-
-
-
 
 </style>

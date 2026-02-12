@@ -6,21 +6,8 @@ node_modules/
 socket_server/package-lock.json
 
 
-# Ignoramos el contenido de las carpetas
-archivos_torneos/*
-imagenes/*
-imagenes_cancha_torneo/*
-imagenes_torneo/*
-imagenes_cancha_torneos/*
-imagenescancha/*
-logos/*
-logos_torneos/*
-logospartidos/*
-logosteams/*
-logostorneos/*
-media/*
-micarpeta/*
-videos/*
+# Ignoramos el contenido
+images_container/*
 
 # Excluimos los .gitkeep para que las carpetas se suban vacías
 !archivos_torneos/.gitkeep

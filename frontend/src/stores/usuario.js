@@ -17,7 +17,6 @@ export const useUsuarios = defineStore("usuario", {
       fileInput: "",
       equipo_tiene: 0,
       esLider: false,
-      // Añadimos una bandera de autenticación simple
       isLoggedIn: false,
     },
   }),

@@ -25,7 +25,7 @@
   <div v-if="showConfirm" class="confirm-overlay">
     <div class="confirm-box">
       <p>¿Seguro que quieres eliminar el video "<strong>{{videos.find(v => v.id === videoIdToDelete)?.descripcion ||
-          'Sin descripción' }}</strong>"?</p>
+        'Sin descripción'}}</strong>"?</p>
       <div class="confirm-buttons">
         <button class="delete-btn" @click="deleteVideo">Sí, eliminar</button>
         <button class="cancel-btn" @click="showConfirm = false">Cancelar</button>
@@ -284,19 +284,25 @@ export default {
     const videoIdToDelete = ref(null);
     const movistore = useUsuarios();
 
+
+
+
+
     const getUrlvideo = (path) => path?.startsWith("http") ? path : `http://127.0.0.1:8000/${path}`;
 
     const cargarVideos = async () => {
-      const documento = movistore.usuario.documento;
+      const documento = movistore.usuario?.documento;
+      if (!documento) return;
       try {
         const response = await axios.get(`http://127.0.0.1:8000/listarvideosdef/${documento}`);
-
-        videos.value = response.data.map(video => ({
-          id: video.id,
-          url: getUrlvideo(video.url ?? "default.mp4"),
-          descripcion: video.description?.trim() || "Sin descripción",
-          likes: Number(video.likes) || 0,
-        }));
+        if (Array.isArray(response.data)) {
+          videos.value = response.data.map(video => ({
+            id: video.id,
+            url: getUrlvideo(video.url ?? "default.mp4"),
+            descripcion: video.description?.trim() || "Sin descripción",
+            likes: Number(video.likes) || 0,
+          }));
+        }
 
       } catch (error) {
         console.error("❌ Error al cargar los videos:", error.response?.data || error);
@@ -332,13 +338,12 @@ export default {
       videoIdToDelete.value = null;
     };
 
-
     watch(() => movistore.usuario?.documento, async (nuevoDocumento) => {
       if (nuevoDocumento && videos.value.length == 0) {
-
         await cargarVideos();
       }
     }, { immediate: true });
+
 
     return {
       videos,
