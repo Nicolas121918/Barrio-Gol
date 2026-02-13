@@ -8,6 +8,7 @@ socket_server/package-lock.json
 
 # Ignoramos el contenido
 images_container/*
+videos/*
 
 # Excluimos los .gitkeep para que las carpetas se suban vacías
 !archivos_torneos/.gitkeep

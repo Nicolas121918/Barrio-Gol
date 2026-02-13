@@ -15,7 +15,7 @@
   <div class="navbar-wrapper">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" >BarrioGol</a>
+        <a class="navbar-brand">BarrioGol</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -25,19 +25,23 @@
 
 
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page"> <router-link id="mi_perfil_link"  to="/Perfil">
-      Mi Perfil
-    </router-link> 
-</a>
+              <a class="nav-link active" aria-current="page"> <router-link id="mi_perfil_link" to="/Perfil">
+                  Mi Perfil
+                </router-link>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link">
- <router-link id="ayuda_link"  to="/contacto">
-      Ayuda
-    </router-link></a>
+                <router-link id="ayuda_link" to="/contacto">
+                  Ayuda
+                </router-link></a>
             </li>
+
             <li class="nav-item">
-             <button  v-on:click="cerrarSesion">cerrar sesion</button>
+              <a class="nav-link">
+                <router-link>
+                  <button class="exit" v-on:click="cerrarSesion">cerrar sesion</button>
+                </router-link></a>
             </li>
           </ul>
         </div>
@@ -50,11 +54,11 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router'; 
+import { useRouter } from 'vue-router';
 import Headerapp from '../layout/Headerapp.vue';
 import headermobile from '../layout/headermobile.vue';
 import { useUsuarios } from '@/stores/usuario';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 
 const router = useRouter();
 const store = useUsuarios();
@@ -62,9 +66,9 @@ const store = useUsuarios();
 const cerrarSesion = async () => {
   try {
     await store.logout();
-    
+
     router.push("/inicioSesion");
-    
+
     Swal.fire({
       icon: "info",
       title: "Sesión cerrada",
@@ -73,15 +77,13 @@ const cerrarSesion = async () => {
     });
   } catch (error) {
     throw new Error("Error al cerrar sesión", error);
-    
+
   }
 };
 
 </script>
 
 <style scoped>
-
-
 .navbar-wrapper {
   display: flex;
   justify-content: center;
@@ -123,7 +125,9 @@ const cerrarSesion = async () => {
   font-weight: bold;
 }
 
-#mi_perfil_link, #cerrar_sesion_link, #ayuda_link {
+#mi_perfil_link,
+#cerrar_sesion_link,
+#ayuda_link {
   text-decoration: none;
   color: inherit;
 }
@@ -132,8 +136,11 @@ const cerrarSesion = async () => {
   border: none;
 }
 
-
-
-
-
+.exit {
+  border-style: none;
+  background-color: transparent;
+}
+.exit:hover{
+  color: #ff0000;
+}
 </style>

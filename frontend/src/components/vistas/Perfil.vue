@@ -15,7 +15,7 @@
     <section class="fondo" v-if="isUserLoaded">
       <router-link class="actualizar_perfil" to="/actualizar_perfil">Actualizar Datos</router-link>
       <router-link class="link equipo" to="/equipos">
-        <img class="clan" src="../assets/iconos header/clan.png" alt="" />
+        <img class="clan" src="../../assets//imagenes/clan.png" alt="" />
       </router-link>
       <div class="container_profile">
         <div class="card_profile">

@@ -17,41 +17,34 @@
 
         <div class="offcanvas-body d-flex flex-column align-items-start">
           <router-link class="nav-link mb-2" to="/Perfil">
-            <img class="api1 me-2" src="../../assets/iconos header/perfil-del-usuario.png" alt="Perfil"> Perfil
+            <i class="pi pi-user Icons-vue" style="color: white;"></i> Perfil
           </router-link>
 
           <router-link class="nav-link mb-2" to="/home">
-            <img class="api2 me-2" src="../../assets/iconos header/hogar.png" alt="Home"> Home
+            <i class="pi pi-home Icons-vue" style="color: white;"></i> Home
           </router-link>
 
           <router-link class="nav-link mb-2" to="/torneos">
-            <img class="api3 me-2" src="../../assets/iconos header/torneo.png" alt="Torneo"> Torneos
+            <i class="pi pi-users Icons-vue" style="color: white;"></i> Torneos
           </router-link>
 
           <router-link class="nav-link mb-2" to="/equipos">
-            <img class="api5 me-2" src="../../assets/iconos header/clan.png" alt="Equipo"> Equipos
+           <i class="pi pi-users Icons-vue" style="color: white;"></i> Equipos
           </router-link>
 
           <router-link class="nav-link mb-2" to="/jugadores">
-            <img class="api4 me-2" src="../../assets/imagenes/personas.png" alt="Jugadores"> Jugadores
+            <i class="pi pi-plus-circle Icons-vue" style="color: white;"></i> Jugadores
           </router-link>
 
-          <router-link class="nav-link mb-2" to="/videos">
-            <img class="api4 me-2" src="../../assets/imagenes/video.png" alt="Videos"> Videos
+          <router-link class="nav-link " to="/videos">
+            <i class="pi pi-youtube Icons-vue" style="color: white;"></i> Videos
           </router-link>
-
-          <router-link class="nav-link mb-2 d-flex align-items-center" to="/notificaciones">
-            <svg viewBox="0 0 24 24" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg"
-              class="me-2 text-white">
-              <path
-                d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"
-                stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" />
-            </svg>
-            Notificaciones
+          <router-link class="nav-link mb-3" to="/notificaciones">
+            <i class="pi pi-bell " style="color: white"></i> Notificaciones
           </router-link>
-
+          
           <router-link class="nav-link mb-2" to="/stores">
-            <img class="api4 me-2" src="../../assets/imagenes/futbol.png" alt="Tienda"> Tienda
+             <i class="pi pi-shopping-bag " style="color: white"></i> Tienda  
           </router-link>
 
 
@@ -234,29 +227,10 @@ body {
   overflow: hidden;
 
 }
-
-
-
-.api1,
-.api2,
-.api3,
-.api4,
-.api5,
-.api6 {
-  filter: drop-shadow(0 0 1px rgb(0, 0, 0));
-  transition: transform 0.5s;
-  height: 55px;
-  width: auto;
-  margin: 0 5px;
-}
-
-
-
-.api11 {
-  position: relative;
-  height: 110px;
-  width: auto;
-
+.Icons-vue{
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  padding-right: 0.10rem;
 }
 
 
@@ -273,36 +247,6 @@ body {
 }
 
 
-.api1:hover,
-.api2:hover,
-.api3:hover,
-.api4:hover,
-.api5:hover,
-.api6:hover {
-  transform: scale(1.2);
-
-}
-
-
-a.router-link-active,
-a.router-link-exact-active {
-  color: inherit;
-  text-decoration: none;
-  background-color: none;
-}
-
-
-.link {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
-
-.link:hover {
-  background: none;
-}
-
-
 
 @media (min-width: 320px) and (max-width: 480px) {
   .header1 {
@@ -310,19 +254,6 @@ a.router-link-exact-active {
     width: 100%;
 
   }
-
-  .api1,
-  .api2,
-  .api3,
-  .api4,
-  .api5,
-  .api6 {
-    filter: drop-shadow(0 0 1px rgb(0, 0, 0));
-    transition: transform 0.5s;
-    height: 20px;
-    width: auto;
-  }
-
   .api8 {
     position: relative;
     height: 36px;
@@ -343,18 +274,6 @@ a.router-link-exact-active {
 
   }
 
-  .api1,
-  .api2,
-  .api3,
-  .api4,
-  .api5,
-  .api6 {
-    filter: drop-shadow(0 0 1px rgb(0, 0, 0));
-    transition: transform 0.5s;
-    height: 38px;
-    width: auto;
-  }
-
   .api8 {
     position: relative;
     height: 70px;
@@ -373,19 +292,6 @@ a.router-link-exact-active {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
-
-  .api1,
-  .api2,
-  .api3,
-  .api4,
-  .api5,
-  .api6 {
-    filter: drop-shadow(0 0 1px rgb(0, 0, 0));
-    transition: transform 0.5s;
-    height: 38px;
-    width: auto;
-  }
-
   .api8 {
     position: relative;
     height: 70px;
@@ -404,19 +310,6 @@ a.router-link-exact-active {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
-
-  .api1,
-  .api2,
-  .api3,
-  .api4,
-  .api5,
-  .api6 {
-    filter: drop-shadow(0 0 1px rgb(0, 0, 0));
-    transition: transform 0.5s;
-    height: 38px;
-    width: auto;
-  }
-
   .api8 {
     position: relative;
     height: 70px;
@@ -435,19 +328,6 @@ a.router-link-exact-active {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
-
-  .api1,
-  .api2,
-  .api3,
-  .api4,
-  .api5,
-  .api6 {
-    filter: drop-shadow(0 0 1px rgb(0, 0, 0));
-    transition: transform 0.5s;
-    height: 38px;
-    width: auto;
-  }
-
   .api8 {
     position: relative;
     height: 70px;
