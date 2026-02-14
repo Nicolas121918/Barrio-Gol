@@ -7,7 +7,7 @@
           <p v-if="video.descripcion" class="description">{{ video.descripcion }}</p>
           <br>
           <p class="likes">
-            <img class="likeee" src="../assets/imagenes/like.png" alt=""> {{ video.likes }} Likes
+            <i class="pi pi-thumbs-up" style="color: white;">{{ video.likes }}</i>
           </p>
         </div>
         <div class="menu">

@@ -17,39 +17,36 @@
 
         <div class="offcanvas-body d-flex flex-column align-items-start">
           <router-link class="nav-link mb-2" to="/Perfil">
-            <i class="pi pi-user Icons-vue" style="color: white;"></i> Perfil
-          </router-link>
-
-          <router-link class="nav-link mb-2" to="/home">
-            <i class="pi pi-home Icons-vue" style="color: white;"></i> Home
-          </router-link>
-
-          <router-link class="nav-link mb-2" to="/torneos">
-            <i class="pi pi-users Icons-vue" style="color: white;"></i> Torneos
-          </router-link>
-
-          <router-link class="nav-link mb-2" to="/equipos">
-           <i class="pi pi-users Icons-vue" style="color: white;"></i> Equipos
+            <i class="pi pi-user Icons-vue"></i> Perfil
           </router-link>
 
           <router-link class="nav-link mb-2" to="/jugadores">
-            <i class="pi pi-plus-circle Icons-vue" style="color: white;"></i> Jugadores
+            <i class="pi pi-plus-circle Icons-vue"></i> Jugadores
           </router-link>
 
           <router-link class="nav-link " to="/videos">
-            <i class="pi pi-youtube Icons-vue" style="color: white;"></i> Videos
+            <i class="pi pi-youtube Icons-vue"></i> Videos
           </router-link>
-          <router-link class="nav-link mb-3" to="/notificaciones">
-            <i class="pi pi-bell " style="color: white"></i> Notificaciones
+
+
+          <router-link class="nav-link mb-2" to="/equipos">
+            <i class="pi pi-users Icons-vue"></i> Equipos
           </router-link>
-          
+
           <router-link class="nav-link mb-2" to="/stores">
-             <i class="pi pi-shopping-bag " style="color: white"></i> Tienda  
+            <i class="pi pi-shopping-bag " style="color: white"></i> Tienda
           </router-link>
 
+          <router-link class="nav-link mb-2" to="/home">
+            <i class="pi pi-home Icons-vue"></i> Home
+          </router-link>
 
-          <router-link class="link api8" to="/home">
-            <img class="api8" src="../../assets/imagenes/logo.png" alt="Logo">
+          <router-link class="nav-link mb-3" to="/notificaciones">
+            <i class="pi pi-bell "></i> Notificaciones
+          </router-link>
+
+          <router-link class="nav-link" to="/inicioSesion">
+            <td><i class="pi pi-sign-out"></i>Cerra Sesion</td>
           </router-link>
           <div class="mt-4 text-light small">
             No tienes Notificaciones Hoy: {{ fecha }}
@@ -227,7 +224,8 @@ body {
   overflow: hidden;
 
 }
-.Icons-vue{
+
+.Icons-vue {
   font-size: 1rem;
   margin-bottom: 1rem;
   padding-right: 0.10rem;
@@ -254,6 +252,7 @@ body {
     width: 100%;
 
   }
+
   .api8 {
     position: relative;
     height: 36px;
@@ -292,6 +291,7 @@ body {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
+
   .api8 {
     position: relative;
     height: 70px;
@@ -310,6 +310,7 @@ body {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
+
   .api8 {
     position: relative;
     height: 70px;
@@ -328,6 +329,7 @@ body {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
+
   .api8 {
     position: relative;
     height: 70px;

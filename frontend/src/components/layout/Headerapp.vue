@@ -5,20 +5,22 @@
     <router-link class="link perfil" to="/Perfil">
       <i class="pi pi-user Icons-vue" style="color: white;"></i>
     </router-link>
-    <!-- casa-->
-    <router-link class="link home" to="/home">
-      <i class="pi pi-home Icons-vue" style="color: white;"></i>
+    <router-link class="link video" to="/jugadores">
+      <i class="pi pi-plus-circle Icons-vue" style="color: white;"></i>
     </router-link>
     <!-- Encabezado principal con enlaces a distintas rutas -->
     <router-link class="link torneos" to="/torneos">
       <i class="pi pi-users Icons-vue" style="color: white;"></i>
     </router-link>
-    <router-link class="link video" to="/jugadores">
-      <i class="pi pi-plus-circle Icons-vue" style="color: white;"></i>
-    </router-link>
-
     <router-link to="/videos" class=" link">
       <i class="pi pi-youtube Icons-vue" style="color: white;"></i>
+    </router-link>
+    <router-link class="link torneos" to="/stores">
+      <i class="pi pi-shopping-bag Icons-vue" style="color: white"></i>
+    </router-link>
+    <!-- casa-->
+    <router-link class="link home" to="/home">
+      <i class="pi pi-home Icons-vue" style="color: white;"></i>
     </router-link>
     <router-link to="/notificaciones" class="link bell">
       <div class="loader">
@@ -31,9 +33,6 @@
         <div class="point"></div>
         <div class="notification"> No tienes Notificaciones Hoy: {{ fecha }}</div>
       </div>
-    </router-link>
-    <router-link class="link torneos" to="/stores">
-     <i class="pi pi-shopping-bag Icons-vue" style="color: white"></i>
     </router-link>
     <router-link class="link api8" to="/home">
       <img class="api8" src="../../assets/imagenes/logo.png" alt="Logo">
@@ -164,7 +163,8 @@ onMounted(() => {
   overflow: hidden;
 
 }
-.Icons-vue{
+
+.Icons-vue {
   font-size: 2rem;
 }
 
@@ -204,6 +204,7 @@ onMounted(() => {
     background: linear-gradient(rgb(56, 118, 103), rgb(255, 255, 255));
 
   }
+
   .api8 {
     position: relative;
     height: 36px;

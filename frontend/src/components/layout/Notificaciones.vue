@@ -11,40 +11,40 @@
       <headermobile></headermobile>
     </div>
   </header>
-      
-      <table id="update">
-        <thead>
-            <tr>
-              <th>Tus Pqrs <br>Hoy ⬇</th>
-              <th>Fecha De Radicacion</th>
-              <th>Nombre</th>
-              <th>Tipo</th>
-              <th>Email</th>
-                <th>Comentario</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td>({{ fecha }})</td>
-                <td>{{ fechaHoraGuardado }}</td>
-                <td>{{ nombre }}</td>
-                <td>{{ queja_reclamo_quest }}</td>
-                <td>{{ email }}</td>
-                <td>{{ comentario }}</td>
-                <td><button id="delete" @click="eliminarpqr"><img id="logo_delete" src="../assets/imagenes/borrar.png" alt=""></button></td>
-            </tr>
-            
+
+  <table id="update">
+    <thead>
+      <tr>
+        <th>Tus Pqrs <br>Hoy ⬇</th>
+        <th>Fecha De Radicacion</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Email</th>
+        <th>Comentario</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>({{ fecha }})</td>
+        <td>{{ fechaHoraGuardado }}</td>
+        <td>{{ nombre }}</td>
+        <td>{{ queja_reclamo_quest }}</td>
+        <td>{{ email }}</td>
+        <td>{{ comentario }}</td>
+        <td><i id="logo_delete" @click="eliminarpqr" class="pi pi-trash"></i></td>
+      </tr>
 
 
 
-        </tbody>
-    </table>
+
+    </tbody>
+  </table>
 
 </template>
 
 
-<script setup> 
+<script setup>
 import { onMounted, ref, onBeforeUnmount } from 'vue';
 import Headerapp from './Headerapp.vue';
 import headermobile from './headermobile.vue';
@@ -59,7 +59,7 @@ const fechaHoraGuardado = ref('');
 
 onMounted(() => {
   loadProfileFromStorage();
-  
+
   // Actualiza la fecha cada segundo
   const interval = setInterval(() => {
     fecha.value = new Date().toLocaleString();
@@ -84,7 +84,7 @@ const eliminarpqr = () => {
     if (pqr) {
       delete pqrsUsuario[usuarioId];
       localStorage.setItem('pqrs', JSON.stringify(pqrsUsuario))
-      
+
 
       Swal.fire({
         title: 'Éxito',
@@ -92,9 +92,9 @@ const eliminarpqr = () => {
         icon: 'success',
         confirmButtonText: 'Aceptar'
       });
-      verificar.value=false;
-      document.getElementById('update').innerHTML='Eliminado Correctamente';
-      
+      verificar.value = false;
+      document.getElementById('update').innerHTML = 'Eliminado Correctamente';
+
 
 
       console.log('Datos eliminados');
@@ -113,7 +113,7 @@ const eliminarpqr = () => {
 const loadProfileFromStorage = () => {
   const usuarioId = JSON.parse(localStorage.getItem('usuario'))?.id; // Obtiene el id del usuario actual para mostrar el localStorage
   const pqrsUsuario = JSON.parse(localStorage.getItem('pqrs')) || {}; // Obtener los datos almacenados en pqrs
-  verificar.value=true;
+  verificar.value = true;
 
   if (usuarioId && pqrsUsuario[usuarioId]) {
     // Obtener las PQRs del usuario específico
@@ -121,7 +121,7 @@ const loadProfileFromStorage = () => {
 
     if (pqr) {
       const tiempoGuardado = new Date(pqr.fechaHoraGuardado).getTime();
-      const tiempoActual = Date.now(); 
+      const tiempoActual = Date.now();
       const tiempoLimite = 15 * 24 * 60 * 60 * 1000; //tiempo restante 15 dias
 
 
@@ -149,18 +149,20 @@ onMounted(loadProfileFromStorage)
 
 
 <style scoped>
-#logo_delete{
+#logo_delete {
   width: 25px;
   height: auto;
+  cursor: pointer;
 }
 
 
-#delete{
+#delete {
   border-radius: 5%;
   transition: transform 0.8s;
   background-color: white;
 }
-#delete:hover{
+
+#delete:hover {
   background-color: rgb(255, 255, 255);
   transform: scale(1.2);
   color: white;
@@ -168,14 +170,18 @@ onMounted(loadProfileFromStorage)
 
 /* Contenedor de la tabla */
 #update {
-  margin: 0 auto; /* Centra la tabla horizontalmente */
-  width: 80%; /* Ajusta el tamaño de la tabla, puedes modificar el porcentaje según lo necesites */
-  max-width: 100%; /* Asegura que la tabla no se extienda más allá del 100% de su contenedor */
+  margin: 0 auto;
+  /* Centra la tabla horizontalmente */
+  width: 80%;
+  /* Ajusta el tamaño de la tabla, puedes modificar el porcentaje según lo necesites */
+  max-width: 100%;
+  /* Asegura que la tabla no se extienda más allá del 100% de su contenedor */
   border-collapse: collapse;
   background-color: rgba(28, 28, 28, 0.538);
   color: white;
   overflow: hidden;
-  margin-top: 100px; /* Espaciado superior, puedes ajustarlo */
+  margin-top: 100px;
+  /* Espaciado superior, puedes ajustarlo */
 }
 
 table {
@@ -186,20 +192,21 @@ table {
   overflow: hidden;
 }
 
-th, td {
-    border: 1px solid #000000; 
-    padding: 20px; 
-    text-align: center;
+th,
+td {
+  border: 1px solid #000000;
+  padding: 20px;
+  text-align: center;
 }
 
 th {
-    background-color: #000000;
-    color: rgb(255, 255, 255);
-    font-weight: bold; 
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
 }
 
 tr:nth-child(even) {
-    background-color: #ffd900a4;
+  background-color: #ffd900a4;
 }
 
 
@@ -210,8 +217,10 @@ tr:nth-child(even) {
   border-collapse: collapse;
   background-color: rgba(28, 28, 28, 0.538);
   color: white;
-  overflow-x: auto; /* Habilita el desplazamiento horizontal */
-  display: block; /* Hace que la tabla sea un bloque para que el scroll funcione */
+  overflow-x: auto;
+  /* Habilita el desplazamiento horizontal */
+  display: block;
+  /* Hace que la tabla sea un bloque para que el scroll funcione */
 }
 
 table {
@@ -221,16 +230,17 @@ table {
   color: white;
 }
 
-th, td {
-  border: 1px solid #000000; 
-  padding: 15px; 
+th,
+td {
+  border: 1px solid #000000;
+  padding: 15px;
   text-align: center;
 }
 
 th {
   background-color: #000000;
   color: rgb(255, 255, 255);
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 tr:nth-child(even) {
@@ -240,36 +250,42 @@ tr:nth-child(even) {
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {
   #update {
-    font-size: 12px; /* Reduce el tamaño del texto */
+    font-size: 12px;
+    /* Reduce el tamaño del texto */
   }
 
-  th, td {
-    padding: 10px; /* Reduce el espacio interno */
+  th,
+  td {
+    padding: 10px;
+    /* Reduce el espacio interno */
   }
 
   #update table {
-    display: block; /* Activa el scroll horizontal */
-    overflow-x: auto; /* Permite desplazamiento */
-    white-space: nowrap; /* Evita que el texto se ajuste a una nueva línea */
+    display: block;
+    /* Activa el scroll horizontal */
+    overflow-x: auto;
+    /* Permite desplazamiento */
+    white-space: nowrap;
+    /* Evita que el texto se ajuste a una nueva línea */
   }
 }
 
 /* Para pantallas extra pequeñas */
 @media (max-width: 480px) {
   #update {
-    font-size: 10px; /* Reduce aún más el tamaño del texto */
+    font-size: 10px;
+    /* Reduce aún más el tamaño del texto */
   }
 
-  th, td {
-    padding: 8px; /* Ajusta el espacio interno */
+  th,
+  td {
+    padding: 8px;
+    /* Ajusta el espacio interno */
   }
 
   #delete img {
-    width: 20px; /* Ajusta el tamaño del ícono de eliminar */
+    width: 20px;
+    /* Ajusta el tamaño del ícono de eliminar */
   }
 }
-
 </style>
-
-
-

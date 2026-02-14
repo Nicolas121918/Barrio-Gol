@@ -195,11 +195,10 @@ const onFileChange = (event) => {
 
 const limpiarSesionPrevia = async () => {
   try {
-    if (usuariosStore.usuario) {
-      await usuariosStore.logout();
-    }
+    await axios.post("http://127.0.0.1:8000/logout", {}, { withCredentials: true });
+    console.log("Cookie borrada por el servidor");
   } catch (error) {
-    console.error("Error al limpiar sesión residual:", error);
+    console.error("Error al intentar borrar la cookie desde el back:", error);
   }
 };
 
@@ -376,10 +375,8 @@ const registrarUsuario = async () => {
 };
 onMounted(async () => {
   usuariosStore.$reset();
-
-  await limpiarSesionPrevia();
-
   sessionStorage.clear();
+  await limpiarSesionPrevia();
 });
 </script>
 

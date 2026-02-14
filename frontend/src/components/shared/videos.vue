@@ -14,43 +14,31 @@
     <div class="video-feed" @wheel="handleScroll">
       <transition-group name="slide" tag="div" class="video-list">
 
-        <div
-  v-for="(video, index) in videosurls"
-  :key="video.url"
-  class="video-container"
-  v-show="currentIndex === index"
->
-  <video
-    ref="videoPlayer"
-    :src="getUrlvideo(video.url)"
-    class="video"
-    :autoplay="currentIndex === index"
-    loop
-    muted
-    @click="togglePlayPause(index)"
-  ></video>
+        <div v-for="(video, index) in videosurls" :key="video.url" class="video-container"
+          v-show="currentIndex === index">
+          <video ref="videoPlayer" :src="getUrlvideo(video.url)" class="video" :autoplay="currentIndex === index" loop
+            muted @click="togglePlayPause(index)"></video>
 
-  <!-- Overlay de info -->
-  <div class="overlay-info">
-    <div class="info-left">
-      <img :src="getProfilePic(video.uploaderProfilePic)" alt="Profile" class="profile-pic-large" />
-      <div class="text-info">
-        <h3 class="uploader-name">@{{ video.uploaderName }}</h3>
-        <p class="descripcion2">{{ video.description }}</p>
-      </div>
-    </div>
+          <!-- Overlay de info -->
+          <div class="overlay-info">
+            <div class="info-left">
+              <img :src="getProfilePic(video.uploaderProfilePic)" alt="Profile" class="profile-pic-large" />
+              <div class="text-info">
+                <h3 class="uploader-name">@{{ video.uploaderName }}</h3>
+                <p class="descripcion2">{{ video.description }}</p>
+              </div>
+            </div>
 
-    <div class="info-right">
-      <button
-        @click="likeVideo(index)"
-        class="like-button-modern"
-        :class="{ 'zoom-in': likedIndex === index }"
-      >
-        <span class="like-count">{{ video.likes }}</span>
-      </button>
-    </div>
-  </div>
-</div>
+            <div class="info-right">
+              <button @click="likeVideo(index)" class="like-button-modern" :class="{
+                'is-active': video.likes
+              }">
+                <i class="pi pi-thumbs-up" style="color: white; font-size: 1.5rem;"></i>
+              </button>
+              {{ video.likes }}
+            </div>
+          </div>
+        </div>
 
       </transition-group>
     </div>
@@ -84,8 +72,8 @@ export default {
       videosurls: [],
       currentIndex: 0,
       likedVideos: {},
-      likedIndex : null
-      
+      likedIndex: null
+
     };
   },
   computed: {
@@ -317,6 +305,7 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .overlay-info {
   position: absolute;
   bottom: 20px;
@@ -364,7 +353,7 @@ button:disabled {
 }
 
 .like-button-modern {
-  background: linear-gradient(145deg, #ffd93b, #ffb800);
+  background-color: transparent;
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -381,13 +370,13 @@ button:disabled {
 }
 
 .like-button-modern:hover {
-  background: linear-gradient(145deg, #ffe45c, #ffc107);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
   transform: scale(1.1);
 }
 
-.like-button-modern:active {
-  transform: scale(0.95);
+.like-button-modern.is-active {
+  background-color: #0084ff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
 }
 
 /* Estilo del número */
@@ -407,9 +396,11 @@ button:disabled {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.3);
   }
+
   100% {
     transform: scale(1);
   }
@@ -434,73 +425,85 @@ button:disabled {
 @media (min-width: 320px) and (max-width: 480px) {
   .app-container {
 
-  margin-top: 40%;
-  .arriba{
-    display: none;
+    margin-top: 40%;
+
+    .arriba {
+      display: none;
+    }
   }
-}
 
 }
+
 @media (min-width: 481px) and (max-width: 600px) {
   .app-container {
 
-  margin-top: 35%;
-}
-.arriba{
-  display: none;
-}
+    margin-top: 35%;
+  }
+
+  .arriba {
+    display: none;
+  }
 
 }
+
 @media (min-width: 601px) and (max-width: 768px) {
   .app-container {
-  margin-top: 30%;
-}
-.arriba{
-  display: none;
-}
+    margin-top: 30%;
+  }
+
+  .arriba {
+    display: none;
+  }
 
 }
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .app-container {
-  margin-top: 25%;
-}
+    margin-top: 25%;
+  }
 
 }
+
 @media (min-width: 1025px) and (max-width: 1440px) {
   .app-container {
 
-  margin-top: 20%;
-}
+    margin-top: 20%;
+  }
 
 }
+
 @media (min-width: 1441px) and (max-width: 1920px) {
   .app-container {
 
-  margin-top: 20%;
-}
+    margin-top: 20%;
+  }
 
 }
+
 @media (min-width: 1921px) and (max-width: 2560px) {
   .app-container {
 
-  margin-top: 15%;
-}
+    margin-top: 15%;
+  }
 
 }
+
 @media (min-width: 2561px) and (max-width: 3840px) {
   .app-container {
 
-  margin-top: 15%;
-}
+    margin-top: 15%;
+  }
 
 }
+
 @media (min-width: 3841px) and (max-width: 5120px) {
   .app-container {
 
-  margin-top: 15%;
-}
+    margin-top: 15%;
+  }
 
 }
+
 @media (max-width: 768px) {
   .overlay-info {
     flex-direction: column;
@@ -531,6 +534,7 @@ button:disabled {
     font-size: 12px;
   }
 }
+
 .arriba {
   background: linear-gradient(145deg, #111, #222);
   border: 2px solid #ffc400;
@@ -568,9 +572,4 @@ button:disabled {
   border-color: #555;
   color: #555;
 }
-
-
-
-
-
 </style>

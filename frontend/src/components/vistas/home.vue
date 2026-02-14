@@ -23,26 +23,27 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav mx-auto">
 
-
-            <li class="nav-item">
+            <li>
               <a class="nav-link active" aria-current="page"> <router-link id="mi_perfil_link" to="/Perfil">
                   Mi Perfil
                 </router-link>
               </a>
             </li>
-            <li class="nav-item">
+            <li>
               <a class="nav-link">
                 <router-link id="ayuda_link" to="/contacto">
                   Ayuda
                 </router-link></a>
             </li>
 
-            <li class="nav-item">
+            <li>
               <a class="nav-link">
-                <router-link>
-                  <button class="exit" v-on:click="cerrarSesion">cerrar sesion</button>
+                <router-link class="exit" to="/inicioSesion">
+                  Cerrar sesión
                 </router-link></a>
             </li>
+
+
           </ul>
         </div>
       </div>
@@ -53,33 +54,9 @@
 
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import Headerapp from '../layout/Headerapp.vue';
 import headermobile from '../layout/headermobile.vue';
-import { useUsuarios } from '@/stores/usuario';
-import Swal from 'sweetalert2';
 
-const router = useRouter();
-const store = useUsuarios();
-
-const cerrarSesion = async () => {
-  try {
-    await store.logout();
-
-    router.push("/inicioSesion");
-
-    Swal.fire({
-      icon: "info",
-      title: "Sesión cerrada",
-      timer: 1500,
-      showConfirmButton: false
-    });
-  } catch (error) {
-    throw new Error("Error al cerrar sesión", error);
-
-  }
-};
 
 </script>
 
@@ -139,8 +116,6 @@ const cerrarSesion = async () => {
 .exit {
   border-style: none;
   background-color: transparent;
-}
-.exit:hover{
-  color: #ff0000;
+  text-decoration: none;
 }
 </style>
