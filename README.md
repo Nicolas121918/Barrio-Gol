@@ -128,6 +128,18 @@ DATABASE_URL=mysql+mysqlconnector://user:password@localhost/registro
 
 ---
 
+6️⃣ Configuración de la Base de Datos (MySQL)
+Para que el sistema funcione correctamente, es obligatorio crear la base de datos manualmente antes de iniciar el backend. El conector de MySQL y el ORM dependen de la existencia de esta base para realizar el mapeo de los modelos y generar automáticamente los esquemas (tablas).
+
+Abre tu terminal de MySQL o una herramienta como MySQL Workbench / phpMyAdmin.
+
+Ejecuta el siguiente comando SQL:
+
+SQL
+CREATE DATABASE barriogol;
+[!IMPORTANT]
+¿Por qué este paso es necesario? > El backend utiliza un conector que busca específicamente el nombre de la base de datos definida en la cadena de conexión. Una vez detectada, el sistema se encarga de sincronizar los modelos de Python/Node con la base de datos para crear las tablas, relaciones e índices automáticamente. Sin este paso previo, la conexión fallará y el servidor no podrá arrancar.
+
 ### 5️⃣ Ejecutar el servidor
 
 ```bash
